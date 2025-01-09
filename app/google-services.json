@@ -1,0 +1,67 @@
+{
+  "project_info": {
+    "project_number": "772727720513",
+    "project_id": "circlelink-4b823",
+    "storage_bucket": "circlelink-4b823.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:772727720513:android:dc748b89c5f86207ca94c0",
+        "android_client_info": {
+          "package_name": "com.example.circlelinksub"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC5aPHKuqyrocPfF4lJ1hqHJWNbp_gEmec"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:772727720513:android:91437dc26513e95bca94c0",
+        "android_client_info": {
+          "package_name": "com.rmit.CircleLink"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC5aPHKuqyrocPfF4lJ1hqHJWNbp_gEmec"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:772727720513:android:3bf2bee75ac1e20eca94c0",
+        "android_client_info": {
+          "package_name": "vn.edu.rmit.circlelink"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC5aPHKuqyrocPfF4lJ1hqHJWNbp_gEmec"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

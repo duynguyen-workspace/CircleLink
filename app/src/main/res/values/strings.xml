@@ -1,3 +1,16 @@
 <resources>
     <string name="app_name">CircleLink</string>
+    <string name="welcome_text">Welcome to</string>
+    <string name="welcome_description_text">A cozy platform that helps you stay in touch with your beloved ones</string>
+    <string name="get_started">Get Started</string>
+    <string name="login_to_your_account">Login to\nyour account</string>
+    <string name="enter_your_login_information">Enter your login information</string>
+    <string name="forgot_password">Forgot password?</string>
+    <string name="sign_in">Sign In</string>
+    <string name="google">Google</string>
+    <string name="dont_have_an_account">Don\'t have an account?</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="create_new_account">Create new account</string>
+    <string name="enter_your_information_below">Enter your information below</string>
+    <string name="already_have_an_account">Already have an account?</string>
 </resources>
