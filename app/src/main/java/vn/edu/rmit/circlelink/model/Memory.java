@@ -9,15 +9,15 @@ public class Memory implements Serializable {
     private String id;
     private String name;
     private String path;
-    private LocalDate uploadDate;
-    private LocalDate takenDate;
+    private LocalDate createdDate;
+    private String categoryID;
 
-    public Memory(String name, String path, LocalDate uploadDate, LocalDate takenDate) {
+    public Memory(String name, String path, LocalDate createdDate, String categoryID) {
         this.id = UUID.randomUUID().toString();
         this.name = name;
         this.path = path;
-        this.uploadDate = uploadDate;
-        this.takenDate = takenDate;
+        this.createdDate = createdDate;
+        this.categoryID = categoryID;
     }
 
     public String getName() {
@@ -36,19 +36,19 @@ public class Memory implements Serializable {
         this.path = path;
     }
 
-    public LocalDate getUploadDate() {
-        return uploadDate;
+    public LocalDate getCreatedDate() {
+        return createdDate;
     }
 
-    public void setUploadDate(LocalDate uploadDate) {
-        this.uploadDate = uploadDate;
+    public void setCreatedDate(LocalDate createdDate) {
+        this.createdDate = createdDate;
     }
 
-    public LocalDate getTakenDate() {
-        return takenDate;
+    public String getCategoryID() {
+        return categoryID;
     }
 
-    public void setTakenDate(LocalDate takenDate) {
-        this.takenDate = takenDate;
+    public void setCategoryID(String categoryID) {
+        this.categoryID = categoryID;
     }
 }

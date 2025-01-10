@@ -51,7 +51,7 @@ public class CalendarActivity extends AppCompatActivity implements CalendarAdapt
         ArrayList<LocalDate> daysInMonth = daysInMonthArray(CalendarUtils.selectedDate);
 
         CalendarAdapter calendarAdapter = new CalendarAdapter(daysInMonth, this);
-        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getApplicationContext(), 7);
+        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(CalendarActivity.this, 7);
         calendarRecyclerView.setLayoutManager(layoutManager);
         calendarRecyclerView.setAdapter(calendarAdapter);
         setScheduleAdapter();
@@ -84,7 +84,7 @@ public class CalendarActivity extends AppCompatActivity implements CalendarAdapt
     private void setScheduleAdapter() {
         ArrayList<Schedule> dailySchedules = Schedule.schedulesForDate(CalendarUtils.selectedDate);
         CalendarUtils.selectedDateSchedules = dailySchedules;
-        ScheduleAdapter scheduleAdapter = new ScheduleAdapter(getApplicationContext(), dailySchedules);
+        ScheduleAdapter scheduleAdapter = new ScheduleAdapter(CalendarActivity.this, dailySchedules);
         scheduleListView.setAdapter(scheduleAdapter);
     }
 

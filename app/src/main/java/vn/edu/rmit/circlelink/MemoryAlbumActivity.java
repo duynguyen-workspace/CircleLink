@@ -49,10 +49,9 @@ public class MemoryAlbumActivity extends AppCompatActivity {
 
         initWidgets();
 
-        adapter = new RecyclerAdapter(uri, getApplicationContext());
+        adapter = new RecyclerAdapter(uri, MemoryAlbumActivity.this);
         recyclerView.setLayoutManager(new GridLayoutManager(MemoryAlbumActivity.this, 4));
         recyclerView.setAdapter(adapter);
-
 
         pickButton.setOnClickListener(v -> {
 
@@ -107,12 +106,11 @@ public class MemoryAlbumActivity extends AppCompatActivity {
 
     private void processImageURI(Uri imageURI) {
         String imagePath = getRealPathFromURI(imageURI);
-        LocalDate imageTakenDate = getTakenDateFromURI(imageURI);
 
         String imageName = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyyMMdd")) + "_" + LocalTime.now().format(DateTimeFormatter.ofPattern("HHmm")) + ".jpg";
         LocalDate imageUploadDate = LocalDate.now();
 
-        Memory newMemory = new Memory(imageName, imagePath, imageUploadDate, imageTakenDate);
+        Memory newMemory = new Memory(imageName, imagePath, imageUploadDate, "none");
 
 //        uri.add(imageURI);      // for display images purpose; should replace with code to get from photo.getPath()
         memories.add(newMemory);
@@ -127,18 +125,6 @@ public class MemoryAlbumActivity extends AppCompatActivity {
             String path = cursor.getString(columnIndex);
             cursor.close();
             return path;
-        }
-        return null;
-    }
-
-    private LocalDate getTakenDateFromURI(Uri imageURI) {
-        Cursor cursor = getContentResolver().query(imageURI, null, null, null, null);
-        if (cursor != null) {
-            int columnIndex = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATE_TAKEN);
-            cursor.moveToFirst();
-            long takenTimestamp = cursor.getLong(columnIndex);
-            cursor.close();
-            return LocalDate.ofEpochDay(takenTimestamp / (24 * 60 * 60 * 1000));  // Convert timestamp to LocalDate
         }
         return null;
     }
