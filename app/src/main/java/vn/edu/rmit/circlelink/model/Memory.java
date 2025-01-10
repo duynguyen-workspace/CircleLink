@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.UUID;
 
-public class Photo implements Serializable {
+public class Memory implements Serializable {
 
     private String id;
     private String name;
@@ -12,7 +12,7 @@ public class Photo implements Serializable {
     private LocalDate uploadDate;
     private LocalDate takenDate;
 
-    public Photo(String name, String path, LocalDate uploadDate, LocalDate takenDate) {
+    public Memory(String name, String path, LocalDate uploadDate, LocalDate takenDate) {
         this.id = UUID.randomUUID().toString();
         this.name = name;
         this.path = path;

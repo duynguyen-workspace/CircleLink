@@ -15,7 +15,7 @@
 
     <!-- Photos Grid -->
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/photosGridRecyclerView"
+        android:id="@+id/memoriesGridRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:scrollbars="none"

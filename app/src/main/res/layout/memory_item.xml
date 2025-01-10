@@ -6,7 +6,7 @@
     android:layout_height="wrap_content">
 
     <ImageView
-        android:id="@+id/photoItem"
+        android:id="@+id/memoryItem"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:scaleType="centerCrop"

@@ -9,17 +9,17 @@ public class Album {
     private String id;
     private String name;
     private LocalDate createdDate;
-    private ArrayList<Photo> photos;
+    private ArrayList<Memory> memories;
 
-    public Album(String name, LocalDate createdDate, ArrayList<Photo> photos) {
+    public Album(String name, LocalDate createdDate, ArrayList<Memory> memories) {
         this.id = UUID.randomUUID().toString();
         this.name = name;
         this.createdDate = createdDate;
-        this.photos = photos;
+        this.memories = memories;
     }
 
-    public Photo getCoverPhoto() {
-        return photos.isEmpty() ? null : photos.get(0);
+    public Memory getCoverPhoto() {
+        return memories.isEmpty() ? null : memories.get(0);
     }
 
     public String getName() {
@@ -38,11 +38,11 @@ public class Album {
         this.createdDate = createdDate;
     }
 
-    public ArrayList<Photo> getPhotos() {
-        return photos;
+    public ArrayList<Memory> getPhotos() {
+        return memories;
     }
 
-    public void setPhotos(ArrayList<Photo> photos) {
-        this.photos = photos;
+    public void setPhotos(ArrayList<Memory> memories) {
+        this.memories = memories;
     }
 }

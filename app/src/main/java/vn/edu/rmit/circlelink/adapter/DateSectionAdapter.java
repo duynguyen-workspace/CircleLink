@@ -12,17 +12,17 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import vn.edu.rmit.circlelink.R;
-import vn.edu.rmit.circlelink.model.Photo;
+import vn.edu.rmit.circlelink.model.Memory;
 
 public class DateSectionAdapter extends RecyclerView.Adapter<DateSectionAdapter.DateViewHolder> {
 
     private final Context context;
-    private final Map<String, ArrayList<Photo>> photosByDate; // Date as key, list of photos as value
-    private final PhotoGridAdapter.OnItemListener listener;
+    private final Map<String, ArrayList<Memory>> photosByDate; // Date as key, list of photos as value
+    private final MemoryGridAdapter.OnItemListener listener;
 
     private final ArrayList<String> dates;
 
-    public DateSectionAdapter(Context context, Map<String, ArrayList<Photo>> photosByDate, PhotoGridAdapter.OnItemListener listener, ArrayList<String> dates) {
+    public DateSectionAdapter(Context context, Map<String, ArrayList<Memory>> photosByDate, MemoryGridAdapter.OnItemListener listener, ArrayList<String> dates) {
         this.context = context;
         this.photosByDate = photosByDate;
         this.listener = listener;
@@ -54,7 +54,7 @@ public class DateSectionAdapter extends RecyclerView.Adapter<DateSectionAdapter.
         public DateViewHolder(@NonNull View itemView) {
             super(itemView);
             dateLabel = itemView.findViewById(R.id.dateHeader);
-            photosGrid = itemView.findViewById(R.id.photosGridRecyclerView);
+            photosGrid = itemView.findViewById(R.id.memoriesGridRecyclerView);
         }
     }
 }

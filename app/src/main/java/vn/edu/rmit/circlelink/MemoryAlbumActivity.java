@@ -12,14 +12,10 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -29,7 +25,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import vn.edu.rmit.circlelink.adapter.RecyclerAdapter;
-import vn.edu.rmit.circlelink.model.Photo;
+import vn.edu.rmit.circlelink.model.Memory;
 
 public class MemoryAlbumActivity extends AppCompatActivity {
 
@@ -40,7 +36,7 @@ public class MemoryAlbumActivity extends AppCompatActivity {
     ArrayList<Uri> uri = new ArrayList<>();
     RecyclerAdapter adapter;
 
-    private ArrayList<Photo> photos = new ArrayList<>();
+    private ArrayList<Memory> memories = new ArrayList<>();
 
     private static final int READ_PERMISSION = 101;
     private static final int PICK_IMAGE = 1;
@@ -91,7 +87,7 @@ public class MemoryAlbumActivity extends AppCompatActivity {
                     uri.add(imageURI);
                     processImageURI(imageURI);
                 }
-                Log.d("PhotoList", photos.toString());
+                Log.d("PhotoList", memories.toString());
                 Log.d("URIList", String.valueOf(uri.size()));
                 adapter.notifyDataSetChanged();
                 totalPhotosTV.setText("Photos (" + uri.size() + ")");
@@ -116,10 +112,10 @@ public class MemoryAlbumActivity extends AppCompatActivity {
         String imageName = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyyMMdd")) + "_" + LocalTime.now().format(DateTimeFormatter.ofPattern("HHmm")) + ".jpg";
         LocalDate imageUploadDate = LocalDate.now();
 
-        Photo newPhoto = new Photo(imageName, imagePath, imageUploadDate, imageTakenDate);
+        Memory newMemory = new Memory(imageName, imagePath, imageUploadDate, imageTakenDate);
 
 //        uri.add(imageURI);      // for display images purpose; should replace with code to get from photo.getPath()
-        photos.add(newPhoto);
+        memories.add(newMemory);
     }
 
     private String getRealPathFromURI(Uri imageURI) {
