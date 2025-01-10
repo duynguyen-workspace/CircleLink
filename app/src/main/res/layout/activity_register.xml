@@ -53,18 +53,18 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
             android:background="#2EFFFFFF"
+            android:orientation="vertical"
             android:padding="30dp">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="30dp"
                 android:text="@string/enter_your_information_below"
-                android:textColor="@color/white"
                 android:textAlignment="center"
-                android:textSize="18sp"
-                android:layout_marginBottom="30dp"/>
+                android:textColor="@color/white"
+                android:textSize="18sp" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
@@ -75,10 +75,10 @@
                     android:id="@+id/username"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Username"
                     android:backgroundTint="@color/white"
                     android:drawableLeft="@drawable/icon_user"
                     android:drawablePadding="14dp"
+                    android:hint="Username"
                     android:paddingVertical="18dp" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -91,10 +91,10 @@
                     android:id="@+id/email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Email address"
                     android:backgroundTint="@color/white"
                     android:drawableLeft="@drawable/icon_email"
                     android:drawablePadding="14dp"
+                    android:hint="Email address"
                     android:paddingVertical="18dp" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -107,12 +107,12 @@
                     android:id="@+id/password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Password"
-                    android:inputType="textPassword"
                     android:backgroundTint="@color/white"
                     android:drawableLeft="@drawable/icon_lock"
                     android:drawablePadding="14dp"
-                    android:paddingVertical="18dp"/>
+                    android:hint="Password"
+                    android:inputType="textPassword"
+                    android:paddingVertical="18dp" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <LinearLayout
@@ -123,16 +123,16 @@
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginRight="20dp"
                     android:layout_marginBottom="15dp"
-                    android:layout_weight="0.5"
-                    android:layout_marginRight="20dp">
+                    android:layout_weight="0.5">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/fname"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="First name"
                         android:backgroundTint="@color/white"
+                        android:hint="First name"
                         android:paddingVertical="18dp" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -146,8 +146,8 @@
                         android:id="@+id/lname"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Last name"
                         android:backgroundTint="@color/white"
+                        android:hint="Last name"
                         android:paddingVertical="18dp" />
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
@@ -161,29 +161,29 @@
                     android:id="@+id/phone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Phone number"
-                    android:inputType="phone"
                     android:backgroundTint="@color/white"
                     android:drawableLeft="@drawable/icon_phone"
                     android:drawablePadding="14dp"
-                    android:paddingVertical="18dp"/>
+                    android:hint="Phone number"
+                    android:inputType="phone"
+                    android:paddingVertical="18dp" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:layout_marginBottom="10dp"
                 android:gravity="center_vertical"
+                android:orientation="horizontal"
                 android:paddingVertical="5dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Sex: "
-                    android:textSize="20sp"
                     android:layout_marginRight="10dp"
-                    android:textColor="@color/white"/>
+                    android:text="Sex: "
+                    android:textColor="@color/white"
+                    android:textSize="20sp" />
 
                 <Spinner
                     android:id="@+id/spinner"
@@ -191,8 +191,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0.4"
                     android:background="@color/white"
-                    android:padding="10dp"
-                    android:dropDownSelector="@drawable/icon_menu_down"/>
+                    android:dropDownSelector="@drawable/icon_menu_down"
+                    android:padding="10dp" />
 
             </LinearLayout>
 
@@ -204,66 +204,26 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Birthdate: "
-                    android:textSize="20sp"
                     android:layout_marginRight="10dp"
-                    android:textColor="@color/white"/>
+                    android:text="Birthdate: "
+                    android:textColor="@color/white"
+                    android:textSize="20sp" />
 
                 <Button
                     android:id="@+id/btnDatePicker"
+                    style="?android:spinnerStyle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="Jan 01 2024"
-                    android:textSize="18sp"
                     android:layout_weight="0.6"
-                    android:padding="10dp"
-                    android:gravity="start|center_vertical"
-                    android:textAllCaps="false"
-                    style="?android:spinnerStyle"
-                    android:onClick="openDatePicker"
                     android:background="@color/white"
                     android:drawableRight="@drawable/icon_menu_down"
-                    />
+                    android:gravity="start|center_vertical"
+                    android:onClick="openDatePicker"
+                    android:padding="10dp"
+                    android:text="Jan 01 2024"
+                    android:textAllCaps="false"
+                    android:textSize="18sp" />
             </LinearLayout>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Sign up as a:"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:textColor="#A6F2A7"
-                android:layout_marginTop="20dp"/>
-
-            <RadioGroup
-                android:id="@+id/radioGroup"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:checkedButton="@id/radioButtonNormalUser">
-
-                <RadioButton
-                    android:id="@+id/radioButtonNormalUser"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="Normal User"
-                    android:textColor="@color/white"
-                    android:textSize="18sp"
-                    android:buttonTint="@color/white"
-                    android:layout_weight="0.5"
-                    android:layout_marginTop="8dp"/>
-
-                <RadioButton
-                    android:id="@+id/radioButtonSuperUser"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="Super User"
-                    android:textColor="@color/white"
-                    android:textSize="18sp"
-                    android:buttonTint="@color/white"
-                    android:layout_weight="0.5"
-                    android:layout_marginTop="8dp"/>
-            </RadioGroup>
 
             <ProgressBar
                 android:id="@+id/progressBar"
@@ -271,44 +231,44 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:visibility="gone"/>
+                android:visibility="gone" />
 
             <Button
                 android:id="@+id/btnSignUp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/sign_up"
+                android:layout_marginTop="20dp"
                 android:backgroundTint="#A6F2A7"
+                android:paddingVertical="18dp"
+                android:text="@string/sign_up"
+                android:textAllCaps="true"
                 android:textColor="#674747"
                 android:textSize="18sp"
-                android:textAllCaps="true"
-                android:textStyle="bold"
-                android:paddingVertical="18dp"
-                android:layout_marginTop="20dp"/>
+                android:textStyle="bold" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
                 android:gravity="center"
-                android:orientation="horizontal"
-                android:layout_marginTop="50dp">
+                android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/already_have_an_account"
-                    android:textSize="18sp"
                     android:layout_marginRight="8dp"
-                    android:textColor="@color/white"/>
+                    android:text="@string/already_have_an_account"
+                    android:textColor="@color/white"
+                    android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/textViewSignIn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/sign_in"
-                    android:textSize="18sp"
                     android:textColor="#A6F2A7"
-                    android:textStyle="bold"/>
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
             </LinearLayout>
 
 
