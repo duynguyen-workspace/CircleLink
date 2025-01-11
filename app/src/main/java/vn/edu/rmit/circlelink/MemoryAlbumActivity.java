@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -35,8 +36,6 @@ public class MemoryAlbumActivity extends AppCompatActivity {
 
     MemoryMonthAdapter memoriesAdapter;
 
-    ArrayList<Memory> memories = new ArrayList<>();
-
     private static final int READ_PERMISSION = 101;
     private static final int PICK_IMAGE = 1;
 
@@ -52,8 +51,14 @@ public class MemoryAlbumActivity extends AppCompatActivity {
         setUpPickMemoryButton();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setUpMemories();
+    }
+
     private void setUpMemories() {
-        memoriesAdapter = new MemoryMonthAdapter(MemoryAlbumActivity.this, MemoryUtils.groupAndSortMemoriesByMonth(memories));
+        memoriesAdapter = new MemoryMonthAdapter(MemoryAlbumActivity.this, MemoryUtils.groupAndSortMemoriesByMonth());
         memoriesView.setLayoutManager(new LinearLayoutManager(MemoryAlbumActivity.this));
         memoriesView.setAdapter(memoriesAdapter);
     }
@@ -83,56 +88,88 @@ public class MemoryAlbumActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == PICK_IMAGE && resultCode == RESULT_OK && null != data) {
-            if (data.getClipData() != null) {
-
-                int countOfImages = data.getClipData().getItemCount();
-                for (int i = 0; i < countOfImages; i++) {
-                    Uri imageURI = data.getClipData().getItemAt(i).getUri();
-                    // add image to cloud storage and get URL string
-                    processImageURI(imageURI, i);
+        if (requestCode == PICK_IMAGE && resultCode == RESULT_OK && data != null) {
+            // Show the category selection dialog
+            showCategorySelectionDialog(selectedCategory -> {
+                if (data.getClipData() != null) {
+                    int countOfImages = data.getClipData().getItemCount();
+                    for (int i = 0; i < countOfImages; i++) {
+                        Uri imageURI = data.getClipData().getItemAt(i).getUri();
+                        processImageURI(imageURI, i, selectedCategory);
+                    }
+                } else {
+                    Uri imageURI = data.getData();
+                    processImageURI(imageURI, 0, selectedCategory);
                 }
-            } else {
 
-                Uri imageURI = data.getData();
-                processImageURI(imageURI);
+//                Log.d("PhotoList", memories.toString());
+                Log.d("PhotoList", MemoryUtils.currentMemories.toString());
+                setUpMemories();
+//                totalPhotosTV.setText("Photos (" + memories.size() + ")");
+                totalPhotosTV.setText("Photos (" + MemoryUtils.currentMemories.size() + ")");
 
-            }
-            Log.d("PhotoList", memories.toString());
-            setUpMemories();
-            totalPhotosTV.setText("Photos (" + memories.size() + ")");
+            });
         } else {
-            Toast.makeText(MemoryAlbumActivity.this, "No images picked", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "No images picked", Toast.LENGTH_SHORT).show();
         }
     }
 
-    private void processImageURI(Uri imageURI) {
+    private void processImageURI(Uri imageURI, int i, String category) {
 
         String imagePath = imageURI.toString();
-        String imageName = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyyMMdd")) +
-                "_" + LocalTime.now().format(DateTimeFormatter.ofPattern("HHmm")) + ".jpg";
+        String imageName;
+        if (i == 0) {
+            imageName = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyyMMdd")) +
+                    "_" + LocalTime.now().format(DateTimeFormatter.ofPattern("HHmmssSS")) + ".jpg";
+        } else {
+            imageName = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyyMMdd")) +
+                    "_" + LocalTime.now().format(DateTimeFormatter.ofPattern("HHmmssSS")) +
+                    "(" + i + ")" + ".jpg";
+        }
         LocalDate imageUploadDate = LocalDate.now();
 
-        Memory newMemory = new Memory(imageName, imagePath, imageUploadDate, "none");
+        Memory newMemory = new Memory(imageName, imagePath, imageUploadDate, category);
 
         Log.d("PhotoName", newMemory.getName());
+        Log.d("PhotoCategory", newMemory.getCategoryID());
 
-        memories.add(newMemory);
+        MemoryUtils.currentMemories.add(newMemory);
     }
 
-    private void processImageURI(Uri imageURI, int i) {
+    private void showCategorySelectionDialog(CategorySelectionCallback callback) {
+        // Define the categories
+        final String[] categories = {"Travel", "Birthdays", "Hangouts", "Celebrations", "Holidays"};
+        final String[] selectedCategory = {null}; // Temporary holder for the selected category
 
-        String imagePath = imageURI.toString();
-        String imageName = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyyMMdd")) +
-                "_" + LocalTime.now().format(DateTimeFormatter.ofPattern("HHmm")) +
-                "(" + i + ")" + ".jpg";
-        LocalDate imageUploadDate = LocalDate.now();
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Select a Category (optional)");
 
-        Memory newMemory = new Memory(imageName, imagePath, imageUploadDate, "none");
+        // Use single-choice items (radio button)
+        builder.setSingleChoiceItems(categories, -1, (dialog, which) -> {
+            // User selected a category
+            selectedCategory[0] = categories[which];
+        });
 
-        Log.d("PhotoName", newMemory.getName());
+        // When the user confirms their selection
+        builder.setPositiveButton("Confirm", (dialog, which) -> {
+            if (selectedCategory[0] != null) {
+                callback.onCategorySelected(selectedCategory[0]);
+            } else {
+                callback.onCategorySelected("none"); // Default to "none" if nothing is selected
+            }
+            dialog.dismiss();
+        });
 
-        memories.add(newMemory);
+        // Handle cancel event
+        builder.setNegativeButton("Skip", (dialog, which) -> {
+            callback.onCategorySelected("none"); // Default to "none" on cancel
+            dialog.dismiss();
+        });
+
+        builder.create().show();
     }
 
+    public interface CategorySelectionCallback {
+        void onCategorySelected(String category);
+    }
 }
