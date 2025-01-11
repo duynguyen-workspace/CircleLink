@@ -18,7 +18,7 @@ public class MemoryUtils {
     private static final String[] categories = {"Travel", "Birthdays", "Hangouts", "Celebrations", "Holidays"};
 
     public static ArrayList<Memory> currentMemories = new ArrayList<>();
-    public static ArrayList<Album> currentAlbums = createAlbumsFromCategories();
+    public static ArrayList<Album> categoryAlbums = createAlbumsFromCategories();
 
     public static LinkedHashMap<String, ArrayList<Memory>> groupAndSortMemoriesByMonth() {
 
@@ -89,7 +89,6 @@ public class MemoryUtils {
             Log.d("UpdateMem", "Memory is updated in list.");
         }
 
-
         Album oldAlbum = getCategoryAlbum(oldCategory);
         if (oldAlbum != null) {
             // Use a separate list to track memories to be removed
@@ -128,7 +127,7 @@ public class MemoryUtils {
         }
 
         // Find the corresponding album and remove from it
-        for (Album album : currentAlbums) {
+        for (Album album : categoryAlbums) {
             if (album.getMemories().contains(memory)) {
                 album.getMemories().remove(memory);  // Remove from album
                 break;  // No need to continue once the memory is removed from the album
@@ -138,7 +137,7 @@ public class MemoryUtils {
 
 
     public static Album getAlbumById(String albumId) {
-        for (Album album : currentAlbums) {
+        for (Album album : categoryAlbums) {
             if (album.getId().equals(albumId)) {
                 return album;
             }
@@ -147,7 +146,7 @@ public class MemoryUtils {
     }
 
     public static Album getCategoryAlbum(String category) {
-        for (Album album : currentAlbums) {
+        for (Album album : categoryAlbums) {
             if (album.getName().equals(category)) {
                 return album;
             }
@@ -174,4 +173,11 @@ public class MemoryUtils {
         }
         return albums;
     }
+
+    public static void addCustomAlbum(Album newAlbum) {
+        // Add the album to the list
+        categoryAlbums.add(newAlbum);
+        Log.d("MemoryUtils", "New custom album added: " + newAlbum.getName());
+    }
+
 }

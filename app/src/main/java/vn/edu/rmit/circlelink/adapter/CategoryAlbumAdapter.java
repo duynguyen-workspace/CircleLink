@@ -19,28 +19,27 @@ import java.util.ArrayList;
 
 import vn.edu.rmit.circlelink.R;
 import vn.edu.rmit.circlelink.ViewAlbumActivity;
-import vn.edu.rmit.circlelink.ViewMemoryActivity;
 import vn.edu.rmit.circlelink.model.Album;
 
-public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.AlbumViewHolder> {
+public class CategoryAlbumAdapter extends RecyclerView.Adapter<CategoryAlbumAdapter.CategoryAlbumViewHolder> {
 
     private final Context context;
     private final ArrayList<Album> albums;
 
-    public AlbumAdapter(Context context, ArrayList<Album> albums) {
+    public CategoryAlbumAdapter(Context context, ArrayList<Album> albums) {
         this.context = context;
         this.albums = albums;
     }
 
     @NonNull
     @Override
-    public AlbumViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public CategoryAlbumViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.album_cell, parent, false);
-        return new AlbumViewHolder(context, view);
+        return new CategoryAlbumViewHolder(context, view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull AlbumViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull CategoryAlbumViewHolder holder, int position) {
         Album album = albums.get(position);
 
         holder.albumName.setText(album.getName());
@@ -68,12 +67,12 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.AlbumViewHol
     }
 
 
-    public static class AlbumViewHolder extends RecyclerView.ViewHolder {
+    public static class CategoryAlbumViewHolder extends RecyclerView.ViewHolder {
 
         private final ImageView albumCover;
         private final TextView albumName;
 
-        public AlbumViewHolder(Context context, @NonNull View itemView) {
+        public CategoryAlbumViewHolder(Context context, @NonNull View itemView) {
             super(itemView);
             albumCover = itemView.findViewById(R.id.albumCoverImage);
             albumName = itemView.findViewById(R.id.albumCoverName);

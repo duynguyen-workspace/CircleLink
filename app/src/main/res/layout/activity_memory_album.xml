@@ -12,12 +12,28 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/albumsLabel"
+            android:id="@+id/categoriesLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Categories"
+            android:textSize="18sp"
+            android:textColor="@color/light_gray" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/categoriesRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp"
+            android:scrollbars="horizontal"/>
+
+        <TextView
+            android:id="@+id/albumsLabel2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Albums"
-            android:textSize="18sp"
-            android:textColor="@color/light_gray" />
+            android:textColor="@color/light_gray"
+            android:textSize="18sp" />
 
         <Button
             android:id="@+id/addAlbumButton"
@@ -27,7 +43,7 @@
             android:layout_gravity="center" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/albumsRecyclerView"
+            android:id="@+id/albumsRecyclerView2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
