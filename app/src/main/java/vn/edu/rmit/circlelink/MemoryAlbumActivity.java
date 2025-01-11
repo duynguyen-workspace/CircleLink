@@ -89,27 +89,34 @@ public class MemoryAlbumActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == PICK_IMAGE && resultCode == RESULT_OK && data != null) {
-            // Show the category selection dialog
-            showCategorySelectionDialog(selectedCategory -> {
+            // Show the category selection dialog and pass the selected category
+            MemoryUtils.showCategorySelectionDialog(MemoryAlbumActivity.this, selectedCategory -> {
+                // Check if multiple images are picked
                 if (data.getClipData() != null) {
                     int countOfImages = data.getClipData().getItemCount();
+                    // Loop through each image
                     for (int i = 0; i < countOfImages; i++) {
                         Uri imageURI = data.getClipData().getItemAt(i).getUri();
+                        // Process each image URI with the selected category
                         processImageURI(imageURI, i, selectedCategory);
                     }
                 } else {
+                    // If only one image is picked
                     Uri imageURI = data.getData();
                     processImageURI(imageURI, 0, selectedCategory);
                 }
 
-//                Log.d("PhotoList", memories.toString());
+                // Log current memories (optional for debugging)
                 Log.d("PhotoList", MemoryUtils.currentMemories.toString());
-                setUpMemories();
-//                totalPhotosTV.setText("Photos (" + memories.size() + ")");
-                totalPhotosTV.setText("Photos (" + MemoryUtils.currentMemories.size() + ")");
 
+                // Set up memories (e.g., updating UI or refreshing data)
+                setUpMemories();
+
+                // Update the total photos text
+                totalPhotosTV.setText("Photos (" + MemoryUtils.currentMemories.size() + ")");
             });
         } else {
+            // If no images were picked
             Toast.makeText(this, "No images picked", Toast.LENGTH_SHORT).show();
         }
     }
@@ -134,42 +141,5 @@ public class MemoryAlbumActivity extends AppCompatActivity {
         Log.d("PhotoCategory", newMemory.getCategoryID());
 
         MemoryUtils.currentMemories.add(newMemory);
-    }
-
-    private void showCategorySelectionDialog(CategorySelectionCallback callback) {
-        // Define the categories
-        final String[] categories = {"Travel", "Birthdays", "Hangouts", "Celebrations", "Holidays"};
-        final String[] selectedCategory = {null}; // Temporary holder for the selected category
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Select a Category (optional)");
-
-        // Use single-choice items (radio button)
-        builder.setSingleChoiceItems(categories, -1, (dialog, which) -> {
-            // User selected a category
-            selectedCategory[0] = categories[which];
-        });
-
-        // When the user confirms their selection
-        builder.setPositiveButton("Confirm", (dialog, which) -> {
-            if (selectedCategory[0] != null) {
-                callback.onCategorySelected(selectedCategory[0]);
-            } else {
-                callback.onCategorySelected("none"); // Default to "none" if nothing is selected
-            }
-            dialog.dismiss();
-        });
-
-        // Handle cancel event
-        builder.setNegativeButton("Skip", (dialog, which) -> {
-            callback.onCategorySelected("none"); // Default to "none" on cancel
-            dialog.dismiss();
-        });
-
-        builder.create().show();
-    }
-
-    public interface CategorySelectionCallback {
-        void onCategorySelected(String category);
     }
 }
