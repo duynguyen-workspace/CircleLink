@@ -23,7 +23,7 @@ public class ViewMemoryActivity extends AppCompatActivity {
 
     private ImageView memoryView;
     private TextView categoryTV;
-    private Memory currentMemory;
+    Memory currentMemory;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,9 +56,10 @@ public class ViewMemoryActivity extends AppCompatActivity {
             public void onCategorySelected(String selectedCategory) {
                 if (!selectedCategory.equals(currentMemory.getCategoryID())) {
                     // Category has changed, update the memory and show a Toast
+                    String oldCategory = currentMemory.getCategoryID();
                     currentMemory.setCategoryID(selectedCategory);
                     setCategoryTV();
-                    MemoryUtils.updateMemoryInList(currentMemory);
+                    MemoryUtils.updateMemory(oldCategory, currentMemory);
                 } else {
                     // No change in category
                     Toast.makeText(ViewMemoryActivity.this, "No change in category", Toast.LENGTH_SHORT).show();
@@ -74,12 +75,7 @@ public class ViewMemoryActivity extends AppCompatActivity {
                 .setPositiveButton("Delete", (dialog, which) -> {
                     // Call delete method from MemoryUtils
                     MemoryUtils.deleteMemory(currentMemory);
-
-                    // Show toast indicating success
-                    Toast.makeText(ViewMemoryActivity.this, "Memory deleted", Toast.LENGTH_SHORT).show();
-
-                    // Go back to previous activity or update UI
-                    finish(); // Close current activity and return to previous screen
+                    finish();
                 })
                 .setNegativeButton("Cancel", null)
                 .show();

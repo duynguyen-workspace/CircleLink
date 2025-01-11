@@ -25,6 +25,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
+import vn.edu.rmit.circlelink.adapter.AlbumAdapter;
 import vn.edu.rmit.circlelink.adapter.MemoryMonthAdapter;
 import vn.edu.rmit.circlelink.model.Memory;
 
@@ -35,6 +36,7 @@ public class MemoryAlbumActivity extends AppCompatActivity {
     Button pickButton;
 
     MemoryMonthAdapter memoriesAdapter;
+    AlbumAdapter albumAdapter;
 
     private static final int READ_PERMISSION = 101;
     private static final int PICK_IMAGE = 1;
@@ -49,11 +51,20 @@ public class MemoryAlbumActivity extends AppCompatActivity {
 
         setUpMemories();
         setUpPickMemoryButton();
+        setUpAlbums();
+    }
+
+    private void setUpAlbums() {
+        Log.d("currentAlbums", "Size: " + MemoryUtils.currentAlbums.size());
+        albumAdapter = new AlbumAdapter(MemoryAlbumActivity.this, MemoryUtils.currentAlbums);
+        albumsView.setLayoutManager(new LinearLayoutManager(MemoryAlbumActivity.this, LinearLayoutManager.HORIZONTAL, false));
+        albumsView.setAdapter(albumAdapter);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        setUpAlbums();
         setUpMemories();
         if (MemoryUtils.currentMemories != null) {
             totalPhotosTV.setText("Photos (" + MemoryUtils.currentMemories.size() + ")");
@@ -117,6 +128,7 @@ public class MemoryAlbumActivity extends AppCompatActivity {
 
                 // Set up memories (e.g., updating UI or refreshing data)
                 setUpMemories();
+                setUpAlbums();
 
                 // Update the total photos text
                 totalPhotosTV.setText("Photos (" + MemoryUtils.currentMemories.size() + ")");
@@ -147,5 +159,6 @@ public class MemoryAlbumActivity extends AppCompatActivity {
         Log.d("PhotoCategory", newMemory.getCategoryID());
 
         MemoryUtils.currentMemories.add(newMemory);
+        MemoryUtils.addMemoryToAlbum(newMemory.getCategoryID(), newMemory);
     }
 }

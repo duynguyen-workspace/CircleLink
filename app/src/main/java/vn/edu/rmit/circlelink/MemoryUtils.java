@@ -5,21 +5,20 @@ import android.util.Log;
 
 import androidx.appcompat.app.AlertDialog;
 
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.function.Function;
 
+import vn.edu.rmit.circlelink.model.Album;
 import vn.edu.rmit.circlelink.model.Memory;
 
 public class MemoryUtils {
 
-    public static ArrayList<Memory> currentMemories = new ArrayList<>();
     private static final String[] categories = {"Travel", "Birthdays", "Hangouts", "Celebrations", "Holidays"};
+
+    public static ArrayList<Memory> currentMemories = new ArrayList<>();
+    public static ArrayList<Album> currentAlbums = createAlbumsFromCategories();
 
     public static LinkedHashMap<String, ArrayList<Memory>> groupAndSortMemoriesByMonth() {
 
@@ -83,24 +82,96 @@ public class MemoryUtils {
         void onCategorySelected(String category);
     }
 
-    public static void updateMemoryInList(Memory updatedMemory) {
+    public static void updateMemory(String oldCategory, Memory updatedMemory) {
         int index = currentMemories.indexOf(updatedMemory);
         if (index != -1) {
             currentMemories.set(index, updatedMemory);
+            Log.d("UpdateMem", "Memory is updated in list.");
+        }
+
+
+        Album oldAlbum = getCategoryAlbum(oldCategory);
+        if (oldAlbum != null) {
+            // Use a separate list to track memories to be removed
+            ArrayList<Memory> memoriesToRemove = new ArrayList<>();
+            for (Memory memory : oldAlbum.getMemories()) {
+                if (memory.getPath().equals(updatedMemory.getPath())) {
+                    memoriesToRemove.add(memory);
+                }
+            }
+            // Now remove the memories outside the loop
+            oldAlbum.getMemories().removeAll(memoriesToRemove);
+            Log.d("UpdateMem", "Memory removed from the old album.");
+        }
+
+        Album newAlbum = getCategoryAlbum(updatedMemory.getCategoryID());
+        if (newAlbum != null) {
+            newAlbum.getMemories().add(updatedMemory);
+            Log.d("UpdateMem", "Memory added to the new album.");
+        } else {
+            Log.e("UpdateMem", "New album not found for category: " + updatedMemory.getCategoryID());
+        }
+
+//        ArrayList<Memory> memories = album.getMemories();
+//        for (int i = 0; i < memories.size(); i++) {
+//            if (memories.get(i).getPath().equals(updatedMemory.getPath())) {
+//                memories.set(i, updatedMemory);  // Replace the old memory with the updated one
+//                break;  // No need to continue once the memory is updated in the album
+//            }
+//        }
+    }
+
+    public static void deleteMemory(Memory memory) {
+        // Remove from currentMemories list
+        if (currentMemories.contains(memory)) {
+            currentMemories.remove(memory);
+        }
+
+        // Find the corresponding album and remove from it
+        for (Album album : currentAlbums) {
+            if (album.getMemories().contains(memory)) {
+                album.getMemories().remove(memory);  // Remove from album
+                break;  // No need to continue once the memory is removed from the album
+            }
         }
     }
 
 
-    public static void deleteMemory(Memory memoryToDelete) {
-        if (memoryToDelete != null && currentMemories != null) {
-            boolean isRemoved = currentMemories.remove(memoryToDelete);
-            if (isRemoved) {
-                Log.d("MemoryUtils", "Memory deleted successfully.");
-            } else {
-                Log.d("MemoryUtils", "Memory not found in list.");
+    public static Album getAlbumById(String albumId) {
+        for (Album album : currentAlbums) {
+            if (album.getId().equals(albumId)) {
+                return album;
             }
-        } else {
-            Log.d("MemoryUtils", "Memory list or memory to delete is null.");
         }
+        return null;
+    }
+
+    public static Album getCategoryAlbum(String category) {
+        for (Album album : currentAlbums) {
+            if (album.getName().equals(category)) {
+                return album;
+            }
+        }
+        return null;
+    }
+
+    public static void addMemoryToAlbum(String albumName, Memory memory) {
+        Album album = getCategoryAlbum(albumName);
+        if (album != null) {
+            album.getMemories().add(memory);
+        } else {
+            Log.e("MemoryUtils", "Album not found: " + albumName);
+        }
+    }
+
+    public static ArrayList<Album> createAlbumsFromCategories() {
+        ArrayList<Album> albums = new ArrayList<>();
+        for (String category : categories) {
+            ArrayList<Memory> memories = new ArrayList<>();
+            // For now, we're initializing the albums without any memories
+            Album album = new Album(category, memories);
+            albums.add(album);
+        }
+        return albums;
     }
 }
