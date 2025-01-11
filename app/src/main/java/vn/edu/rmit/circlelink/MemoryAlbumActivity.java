@@ -16,7 +16,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.time.LocalDate;
@@ -24,19 +24,18 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
-import vn.edu.rmit.circlelink.adapter.RecyclerAdapter;
+import vn.edu.rmit.circlelink.adapter.MemoryMonthAdapter;
 import vn.edu.rmit.circlelink.model.Memory;
 
 public class MemoryAlbumActivity extends AppCompatActivity {
 
-    RecyclerView recyclerView;
+    RecyclerView memoriesView, albumsView;
     TextView totalPhotosTV;
     Button pickButton;
 
-    ArrayList<Uri> uri = new ArrayList<>();
-    RecyclerAdapter adapter;
+    MemoryMonthAdapter memoriesAdapter;
 
-    private ArrayList<Memory> memories = new ArrayList<>();
+    ArrayList<Memory> memories = new ArrayList<>();
 
     private static final int READ_PERMISSION = 101;
     private static final int PICK_IMAGE = 1;
@@ -49,10 +48,24 @@ public class MemoryAlbumActivity extends AppCompatActivity {
 
         initWidgets();
 
-        adapter = new RecyclerAdapter(uri, MemoryAlbumActivity.this);
-        recyclerView.setLayoutManager(new GridLayoutManager(MemoryAlbumActivity.this, 4));
-        recyclerView.setAdapter(adapter);
+        setUpMemories();
+        setUpPickMemoryButton();
+    }
 
+    private void setUpMemories() {
+        memoriesAdapter = new MemoryMonthAdapter(MemoryAlbumActivity.this, MemoryUtils.groupAndSortMemoriesByMonth(memories));
+        memoriesView.setLayoutManager(new LinearLayoutManager(MemoryAlbumActivity.this));
+        memoriesView.setAdapter(memoriesAdapter);
+    }
+
+    private void initWidgets() {
+        totalPhotosTV = findViewById(R.id.totalPhotos);
+        albumsView = findViewById(R.id.albumsRecyclerView);
+        memoriesView = findViewById(R.id.photosRecyclerView);
+        pickButton = findViewById(R.id.pickButton);
+    }
+
+    private void setUpPickMemoryButton() {
         pickButton.setOnClickListener(v -> {
 
             if (ContextCompat.checkSelfPermission(MemoryAlbumActivity.this, android.Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
@@ -66,13 +79,6 @@ public class MemoryAlbumActivity extends AppCompatActivity {
         });
     }
 
-    private void initWidgets() {
-        totalPhotosTV = findViewById(R.id.totalPhotos);
-        recyclerView = findViewById(R.id.photosRecyclerView);
-        pickButton = findViewById(R.id.pickButton);
-    }
-
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -83,49 +89,50 @@ public class MemoryAlbumActivity extends AppCompatActivity {
                 int countOfImages = data.getClipData().getItemCount();
                 for (int i = 0; i < countOfImages; i++) {
                     Uri imageURI = data.getClipData().getItemAt(i).getUri();
-                    uri.add(imageURI);
-                    processImageURI(imageURI);
+                    // add image to cloud storage and get URL string
+                    processImageURI(imageURI, i);
                 }
-                Log.d("PhotoList", memories.toString());
-                Log.d("URIList", String.valueOf(uri.size()));
-                adapter.notifyDataSetChanged();
-                totalPhotosTV.setText("Photos (" + uri.size() + ")");
             } else {
 
                 Uri imageURI = data.getData();
-//                uri.add(imageURI);
                 processImageURI(imageURI);
 
             }
-            adapter.notifyDataSetChanged();
-            totalPhotosTV.setText("Photos (" + uri.size() + ")");
+            Log.d("PhotoList", memories.toString());
+            setUpMemories();
+            totalPhotosTV.setText("Photos (" + memories.size() + ")");
         } else {
             Toast.makeText(MemoryAlbumActivity.this, "No images picked", Toast.LENGTH_SHORT).show();
         }
     }
 
     private void processImageURI(Uri imageURI) {
-        String imagePath = getRealPathFromURI(imageURI);
 
-        String imageName = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyyMMdd")) + "_" + LocalTime.now().format(DateTimeFormatter.ofPattern("HHmm")) + ".jpg";
+        String imagePath = imageURI.toString();
+        String imageName = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyyMMdd")) +
+                "_" + LocalTime.now().format(DateTimeFormatter.ofPattern("HHmm")) + ".jpg";
         LocalDate imageUploadDate = LocalDate.now();
 
         Memory newMemory = new Memory(imageName, imagePath, imageUploadDate, "none");
 
-//        uri.add(imageURI);      // for display images purpose; should replace with code to get from photo.getPath()
+        Log.d("PhotoName", newMemory.getName());
+
         memories.add(newMemory);
     }
 
-    private String getRealPathFromURI(Uri imageURI) {
-        String[] proj = {MediaStore.Images.Media.DATA};
-        Cursor cursor = getContentResolver().query(imageURI, proj, null, null, null);
-        if (cursor != null) {
-            int columnIndex = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-            cursor.moveToFirst();
-            String path = cursor.getString(columnIndex);
-            cursor.close();
-            return path;
-        }
-        return null;
+    private void processImageURI(Uri imageURI, int i) {
+
+        String imagePath = imageURI.toString();
+        String imageName = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyyMMdd")) +
+                "_" + LocalTime.now().format(DateTimeFormatter.ofPattern("HHmm")) +
+                "(" + i + ")" + ".jpg";
+        LocalDate imageUploadDate = LocalDate.now();
+
+        Memory newMemory = new Memory(imageName, imagePath, imageUploadDate, "none");
+
+        Log.d("PhotoName", newMemory.getName());
+
+        memories.add(newMemory);
     }
+
 }
