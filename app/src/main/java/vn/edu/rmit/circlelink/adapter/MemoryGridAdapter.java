@@ -16,6 +16,7 @@ import java.util.ArrayList;
 
 import vn.edu.rmit.circlelink.MemoryAlbumActivity;
 import vn.edu.rmit.circlelink.R;
+import vn.edu.rmit.circlelink.ViewMemoryActivity;
 import vn.edu.rmit.circlelink.model.Memory;
 
 public class MemoryGridAdapter extends RecyclerView.Adapter<MemoryGridAdapter.MemoryViewHolder> {
@@ -47,7 +48,7 @@ public class MemoryGridAdapter extends RecyclerView.Adapter<MemoryGridAdapter.Me
         holder.imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, MemoryAlbumActivity.class);     // replace with ViewMemoryActivity
+                Intent intent = new Intent(context, ViewMemoryActivity.class);     // replace with ViewMemoryActivity
                 intent.putExtra("memory", memory);
                 context.startActivity(intent);
             }

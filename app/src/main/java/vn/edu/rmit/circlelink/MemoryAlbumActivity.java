@@ -55,9 +55,15 @@ public class MemoryAlbumActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         setUpMemories();
+        if (MemoryUtils.currentMemories != null) {
+            totalPhotosTV.setText("Photos (" + MemoryUtils.currentMemories.size() + ")");
+        } else {
+            totalPhotosTV.setText("");
+        }
     }
 
     private void setUpMemories() {
+        Log.d("currentMemories", String.valueOf(MemoryUtils.currentMemories.size()));
         memoriesAdapter = new MemoryMonthAdapter(MemoryAlbumActivity.this, MemoryUtils.groupAndSortMemoriesByMonth());
         memoriesView.setLayoutManager(new LinearLayoutManager(MemoryAlbumActivity.this));
         memoriesView.setAdapter(memoriesAdapter);
@@ -73,7 +79,7 @@ public class MemoryAlbumActivity extends AppCompatActivity {
     private void setUpPickMemoryButton() {
         pickButton.setOnClickListener(v -> {
 
-            if (ContextCompat.checkSelfPermission(MemoryAlbumActivity.this, android.Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            if (ContextCompat.checkSelfPermission(MemoryAlbumActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(MemoryAlbumActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, READ_PERMISSION);
             }
 
@@ -90,7 +96,7 @@ public class MemoryAlbumActivity extends AppCompatActivity {
 
         if (requestCode == PICK_IMAGE && resultCode == RESULT_OK && data != null) {
             // Show the category selection dialog and pass the selected category
-            MemoryUtils.showCategorySelectionDialog(MemoryAlbumActivity.this, selectedCategory -> {
+            MemoryUtils.showCategorySelectionDialog(MemoryAlbumActivity.this, "none", selectedCategory -> {
                 // Check if multiple images are picked
                 if (data.getClipData() != null) {
                     int countOfImages = data.getClipData().getItemCount();

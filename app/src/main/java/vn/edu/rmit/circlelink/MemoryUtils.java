@@ -23,10 +23,12 @@ public class MemoryUtils {
 
     public static LinkedHashMap<String, ArrayList<Memory>> groupAndSortMemoriesByMonth() {
 
-        currentMemories.sort((m1, m2) -> m2.getCreatedDate().compareTo(m1.getCreatedDate()));
+        ArrayList<Memory> sortMemories = currentMemories;
+
+        sortMemories.sort((m1, m2) -> m2.getCreatedDate().compareTo(m1.getCreatedDate()));
         LinkedHashMap<String, ArrayList<Memory>> groupedMemories = new LinkedHashMap<>();
 
-        for (Memory memory : currentMemories) {
+        for (Memory memory : sortMemories) {
             String month = formatLocalDateToMonthYear(memory.getCreatedDate());
             groupedMemories.computeIfAbsent(month, s -> new ArrayList<>()).add(memory);
         }
@@ -38,16 +40,25 @@ public class MemoryUtils {
         return date.format(formatter);
     }
 
-    public static void showCategorySelectionDialog(Context context, CategorySelectionCallback callback) {
-        // Define the categories
-        final String[] categories = {"Travel", "Birthdays", "Hangouts", "Celebrations", "Holidays"};
-        final String[] selectedCategory = {null}; // Temporary holder for the selected category
+    public static void showCategorySelectionDialog(Context context, String previousCategory, CategorySelectionCallback callback) {
+
+        // Find the index of the previous category, or use -1 if it's not found
+        int selectedIndex = -1;
+        for (int i = 0; i < categories.length; i++) {
+            if (categories[i].equals(previousCategory)) {
+                selectedIndex = i;
+                break;
+            }
+        }
+
+        // Temporary holder for the selected category
+        final String[] selectedCategory = {previousCategory};
 
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle("Select a Category (optional)");
 
         // Use single-choice items (radio button)
-        builder.setSingleChoiceItems(categories, -1, (dialog, which) -> {
+        builder.setSingleChoiceItems(categories, selectedIndex, (dialog, which) -> {
             selectedCategory[0] = categories[which];
         });
 
@@ -73,14 +84,23 @@ public class MemoryUtils {
     }
 
     public static void updateMemoryInList(Memory updatedMemory) {
-        // Find the position of the current memory in the list
-        for (int i = 0; i < currentMemories.size(); i++) {
-            if (currentMemories.get(i).getPath().equals(updatedMemory.getPath())) {
-                // Replace the memory at the found position with the updated one
-                currentMemories.set(i, updatedMemory);
-                break;
-            }
+        int index = currentMemories.indexOf(updatedMemory);
+        if (index != -1) {
+            currentMemories.set(index, updatedMemory);
         }
     }
 
+
+    public static void deleteMemory(Memory memoryToDelete) {
+        if (memoryToDelete != null && currentMemories != null) {
+            boolean isRemoved = currentMemories.remove(memoryToDelete);
+            if (isRemoved) {
+                Log.d("MemoryUtils", "Memory deleted successfully.");
+            } else {
+                Log.d("MemoryUtils", "Memory not found in list.");
+            }
+        } else {
+            Log.d("MemoryUtils", "Memory list or memory to delete is null.");
+        }
+    }
 }
