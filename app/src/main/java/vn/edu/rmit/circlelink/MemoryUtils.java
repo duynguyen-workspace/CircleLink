@@ -15,12 +15,14 @@ import vn.edu.rmit.circlelink.model.Memory;
 
 public class MemoryUtils {
 
-    public static LinkedHashMap<String, ArrayList<Memory>> groupAndSortMemoriesByMonth(ArrayList<Memory> memories) {
+    public static ArrayList<Memory> currentMemories = new ArrayList<>();
 
-        memories.sort((m1, m2) -> m2.getCreatedDate().compareTo(m1.getCreatedDate()));
+    public static LinkedHashMap<String, ArrayList<Memory>> groupAndSortMemoriesByMonth() {
+
+        currentMemories.sort((m1, m2) -> m2.getCreatedDate().compareTo(m1.getCreatedDate()));
         LinkedHashMap<String, ArrayList<Memory>> groupedMemories = new LinkedHashMap<>();
 
-        for (Memory memory : memories) {
+        for (Memory memory : currentMemories) {
             String month = formatLocalDateToMonthYear(memory.getCreatedDate());
             groupedMemories.computeIfAbsent(month, s -> new ArrayList<>()).add(memory);
         }
