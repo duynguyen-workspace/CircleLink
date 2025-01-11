@@ -72,4 +72,15 @@ public class MemoryUtils {
         void onCategorySelected(String category);
     }
 
+    public static void updateMemoryInList(Memory updatedMemory) {
+        // Find the position of the current memory in the list
+        for (int i = 0; i < currentMemories.size(); i++) {
+            if (currentMemories.get(i).getPath().equals(updatedMemory.getPath())) {
+                // Replace the memory at the found position with the updated one
+                currentMemories.set(i, updatedMemory);
+                break;
+            }
+        }
+    }
+
 }
