@@ -14,18 +14,24 @@
         android:id="@+id/backButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="-20dp"
+        android:drawableStart="@drawable/round_arrow_left_24"
         android:text="Back"
+        android:textColor="#7AEEEEEE"
+        android:textSize="14sp"
+        android:background="@android:color/transparent"
         android:onClick="closeAction"/>
 
     <TextView
         android:id="@+id/albumName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="30dp"
         android:text="Album Name"
+        android:textAlignment="center"
         android:textColor="@color/light_gray"
         android:textSize="20sp"
-        android:textStyle="bold" />
+        android:textStyle="bold|italic" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/albumMemoryRecyclerView"
