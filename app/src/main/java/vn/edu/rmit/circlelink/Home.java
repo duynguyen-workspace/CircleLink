@@ -19,7 +19,7 @@ import com.google.firebase.auth.FirebaseUser;
 public class Home extends AppCompatActivity {
     FirebaseAuth auth;
     FirebaseUser user;
-    Button btnLogOut;
+    Button btnLogOut, btnGoToPayment;
     TextView textView;
 
     @Override
@@ -31,6 +31,7 @@ public class Home extends AppCompatActivity {
         btnLogOut = findViewById(R.id.btnLogOut);
         user = auth.getCurrentUser();
         textView = findViewById(R.id.textView);
+        btnGoToPayment = findViewById(R.id.btnGoToPayment);
 
         if (user == null) {
             Intent intent = new Intent(getApplicationContext(), Login.class);
@@ -46,6 +47,15 @@ public class Home extends AppCompatActivity {
             public void onClick(View v) {
                 FirebaseAuth.getInstance().signOut();
                 Intent intent = new Intent(getApplicationContext(), Login.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        btnGoToPayment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), Payment.class);
                 startActivity(intent);
                 finish();
             }
