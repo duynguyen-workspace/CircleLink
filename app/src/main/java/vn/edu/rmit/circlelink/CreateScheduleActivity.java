@@ -11,12 +11,8 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import java.time.LocalTime;
 
@@ -26,7 +22,6 @@ public class CreateScheduleActivity extends AppCompatActivity {
 
     private LinearLayout scheduleTimeView;
     private EditText scheduleNameET, scheduleLocationET, scheduleNotesET;
-    //    private TextView scheduleDateTV, scheduleTimeTV;
     private TextView scheduleDateTV, scheduleStartTime, scheduleEndTime, timeAlarmTV, conditionMessage;
     private Switch allDaySwitch;
 
@@ -79,21 +74,18 @@ public class CreateScheduleActivity extends AppCompatActivity {
     }
 
     private void setUpSwitch() {
-        allDaySwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    selectedStartTime = null;
-                    selectedEndTime = null;
+        allDaySwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                selectedStartTime = null;
+                selectedEndTime = null;
 
-                    scheduleTimeView.setVisibility(View.GONE);
-                } else {
-                    selectedStartTime = LocalTime.of(8, 0);
-                    selectedEndTime = LocalTime.of(17, 0);
+                scheduleTimeView.setVisibility(View.GONE);
+            } else {
+                selectedStartTime = LocalTime.of(8, 0);
+                selectedEndTime = LocalTime.of(17, 0);
 
-                    scheduleTimeView.setVisibility(View.VISIBLE);
-                    setUpTimePicker();
-                }
+                scheduleTimeView.setVisibility(View.VISIBLE);
+                setUpTimePicker();
             }
         });
     }
@@ -106,35 +98,25 @@ public class CreateScheduleActivity extends AppCompatActivity {
         scheduleStartTime.setText(CalendarUtils.formattedTime(selectedStartTime));
         scheduleEndTime.setText(CalendarUtils.formattedTime(selectedEndTime));
 
-        scheduleStartTime.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showTimePicker(selectedStartTime, (view, hourOfDay, minute) -> {
-                    selectedStartTime = LocalTime.of(hourOfDay, minute);
-                    scheduleStartTime.setText(CalendarUtils.formattedTime(selectedStartTime));
+        scheduleStartTime.setOnClickListener(v -> showTimePicker(selectedStartTime, (view, hourOfDay, minute) -> {
+            selectedStartTime = LocalTime.of(hourOfDay, minute);
+            scheduleStartTime.setText(CalendarUtils.formattedTime(selectedStartTime));
 
-                    if (selectedEndTime.isBefore(selectedStartTime)) {
-                        selectedEndTime = selectedStartTime;
-                        scheduleEndTime.setText(CalendarUtils.formattedTime(selectedEndTime));
-                    }
-                });
+            if (selectedEndTime.isBefore(selectedStartTime)) {
+                selectedEndTime = selectedStartTime;
+                scheduleEndTime.setText(CalendarUtils.formattedTime(selectedEndTime));
             }
-        });
+        }));
 
-        scheduleEndTime.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showTimePicker(selectedEndTime, (view, hourOfDay, minute) -> {
-                    selectedEndTime = LocalTime.of(hourOfDay, minute);
-                    scheduleEndTime.setText(CalendarUtils.formattedTime(selectedEndTime));
+        scheduleEndTime.setOnClickListener(v -> showTimePicker(selectedEndTime, (view, hourOfDay, minute) -> {
+            selectedEndTime = LocalTime.of(hourOfDay, minute);
+            scheduleEndTime.setText(CalendarUtils.formattedTime(selectedEndTime));
 
-                    if (selectedEndTime.isBefore(selectedStartTime)) {
-                        selectedStartTime = selectedEndTime;
-                        scheduleStartTime.setText(CalendarUtils.formattedTime(selectedStartTime));
-                    }
-                });
+            if (selectedEndTime.isBefore(selectedStartTime)) {
+                selectedStartTime = selectedEndTime;
+                scheduleStartTime.setText(CalendarUtils.formattedTime(selectedStartTime));
             }
-        });
+        }));
 
     }
 
@@ -158,23 +140,20 @@ public class CreateScheduleActivity extends AppCompatActivity {
         };
 
         timeAlarmTV.setText(alarmOptions[0]);
-        timeAlarmTV.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final int[] selectedOption = {0};
+        timeAlarmTV.setOnClickListener(v -> {
+            final int[] selectedOption = {0};
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(CreateScheduleActivity.this);
-                builder.setTitle("Select Alarm Time")
-                        .setSingleChoiceItems(alarmOptions, selectedOption[0], (dialog, which) -> {
-                            selectedOption[0] = which;
-                        })
-                        .setPositiveButton("OK", (dialog, which) -> {
-                            timeAlarmTV.setText(alarmOptions[selectedOption[0]]);
-                        })
-                        .setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss());
+            AlertDialog.Builder builder = new AlertDialog.Builder(CreateScheduleActivity.this);
+            builder.setTitle("Select Alarm Time")
+                    .setSingleChoiceItems(alarmOptions, selectedOption[0], (dialog, which) -> {
+                        selectedOption[0] = which;
+                    })
+                    .setPositiveButton("OK", (dialog, which) -> {
+                        timeAlarmTV.setText(alarmOptions[selectedOption[0]]);
+                    })
+                    .setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss());
 
-                builder.create().show();
-            }
+            builder.create().show();
         });
     }
 

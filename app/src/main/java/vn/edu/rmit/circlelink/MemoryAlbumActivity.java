@@ -7,14 +7,10 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -24,11 +20,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 
 import vn.edu.rmit.circlelink.adapter.CategoryAlbumAdapter;
 import vn.edu.rmit.circlelink.adapter.MemoryMonthAdapter;
-import vn.edu.rmit.circlelink.model.Album;
 import vn.edu.rmit.circlelink.model.Memory;
 
 public class MemoryAlbumActivity extends AppCompatActivity {
@@ -126,13 +120,9 @@ public class MemoryAlbumActivity extends AppCompatActivity {
                     processImageURI(imageURI, 0, selectedCategory);
                 }
 
-                // Log current memories (optional for debugging)
-                Log.d("PhotoList", MemoryUtils.currentMemories.toString());
-
                 // Set up memories (e.g., updating UI or refreshing data)
                 setUpMemories();
                 setUpAlbums();
-
             });
         } else {
             // If no images were picked
@@ -155,10 +145,6 @@ public class MemoryAlbumActivity extends AppCompatActivity {
         LocalDate imageUploadDate = LocalDate.now();
 
         Memory newMemory = new Memory(imageName, imagePath, imageUploadDate, category);
-
-        Log.d("PhotoName", newMemory.getName());
-        Log.d("PhotoCategory", newMemory.getCategoryID());
-
         MemoryUtils.currentMemories.add(newMemory);
         MemoryUtils.addMemoryToAlbum(newMemory.getCategoryID(), newMemory);
     }

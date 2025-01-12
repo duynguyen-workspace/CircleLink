@@ -14,7 +14,6 @@ import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 
-import vn.edu.rmit.circlelink.MemoryAlbumActivity;
 import vn.edu.rmit.circlelink.R;
 import vn.edu.rmit.circlelink.ViewMemoryActivity;
 import vn.edu.rmit.circlelink.model.Memory;

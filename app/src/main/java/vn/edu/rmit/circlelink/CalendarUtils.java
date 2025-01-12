@@ -47,21 +47,10 @@ public class CalendarUtils {
         return false; // No schedule for this date
     }
 
-
-    public static String formattedDate(LocalDate date) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMMM yyyy");
-        return date.format(formatter);
-    }
-
     public static String formattedDateSchedule(LocalDate date) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEE, MMM dd");
         return date.format(formatter);
     }
-
-//    public static String formattedTime(LocalTime time) {
-//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm a");
-//        return time.format(formatter);
-//    }
 
     public static String formattedTime(LocalTime time) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");

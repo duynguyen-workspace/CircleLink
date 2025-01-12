@@ -8,22 +8,16 @@ import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.target.Target;
 
 import vn.edu.rmit.circlelink.model.Memory;
 
@@ -75,19 +69,16 @@ public class ViewMemoryActivity extends AppCompatActivity {
 
 
     public void editMemoryAction(View view) {
-        MemoryUtils.showCategorySelectionDialog(ViewMemoryActivity.this, currentMemory.getCategoryID(), new MemoryUtils.CategorySelectionCallback() {
-            @Override
-            public void onCategorySelected(String selectedCategory) {
-                if (!selectedCategory.equals(currentMemory.getCategoryID())) {
-                    // Category has changed, update the memory and show a Toast
-                    String oldCategory = currentMemory.getCategoryID();
-                    currentMemory.setCategoryID(selectedCategory);
-                    setCategoryTV();
-                    MemoryUtils.updateMemory(oldCategory, currentMemory);
-                } else {
-                    // No change in category
-                    Toast.makeText(ViewMemoryActivity.this, "No change in category", Toast.LENGTH_SHORT).show();
-                }
+        MemoryUtils.showCategorySelectionDialog(ViewMemoryActivity.this, currentMemory.getCategoryID(), selectedCategory -> {
+            if (!selectedCategory.equals(currentMemory.getCategoryID())) {
+                // Category has changed, update the memory and show a Toast
+                String oldCategory = currentMemory.getCategoryID();
+                currentMemory.setCategoryID(selectedCategory);
+                setCategoryTV();
+                MemoryUtils.updateMemory(oldCategory, currentMemory);
+            } else {
+                // No change in category
+                Toast.makeText(ViewMemoryActivity.this, "No change in category", Toast.LENGTH_SHORT).show();
             }
         });
     }

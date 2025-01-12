@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
-import java.util.Map;
 
 import vn.edu.rmit.circlelink.R;
 import vn.edu.rmit.circlelink.model.Memory;

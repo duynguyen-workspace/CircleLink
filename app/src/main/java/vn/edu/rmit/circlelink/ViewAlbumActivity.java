@@ -5,11 +5,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -29,18 +25,10 @@ public class ViewAlbumActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_album);
 
-        String albumId = getIntent().getStringExtra("albumId");
+        String getAlbumName = getIntent().getStringExtra("albumName");
 
-        if (albumId != null) {
-            selectedAlbum = MemoryUtils.getAlbumById(albumId);
-//            if (selectedAlbum != null) {
-//                Log.d("ViewAlbum", "Album id: " + selectedAlbum.getId());
-//                Log.d("ViewAlbum", "Album name: " + selectedAlbum.getName());
-//                Log.d("ViewAlbum", "Album size: " + selectedAlbum.getMemories().size());
-//            } else {
-//                Log.e("ViewAlbum", "Album not found.");
-//                // Show an error or placeholder
-//            }
+        if (getAlbumName != null) {
+            selectedAlbum = MemoryUtils.getAlbumByName(getAlbumName);
         } else {
             Log.e("ViewAlbum", "No album id passed.");
         }

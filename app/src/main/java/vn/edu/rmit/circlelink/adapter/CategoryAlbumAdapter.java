@@ -2,8 +2,6 @@ package vn.edu.rmit.circlelink.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.PorterDuff;
-import android.graphics.PorterDuffColorFilter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,7 +55,7 @@ public class CategoryAlbumAdapter extends RecyclerView.Adapter<CategoryAlbumAdap
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, ViewAlbumActivity.class);
-                intent.putExtra("albumId", album.getId());
+                intent.putExtra("albumName", album.getName());
                 context.startActivity(intent);
             }
         });

@@ -7,18 +7,15 @@ import androidx.annotation.NonNull;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.UUID;
 
 public class Memory implements Parcelable {
 
-    private String id;
     private String name;
     private String path;
     private LocalDate createdDate;
     private String categoryID;
 
     public Memory(String name, String path, LocalDate createdDate, String categoryID) {
-        this.id = UUID.randomUUID().toString();
         this.name = name;
         this.path = path;
         this.createdDate = createdDate;
@@ -26,7 +23,6 @@ public class Memory implements Parcelable {
     }
 
     protected Memory(Parcel in) {
-        id = in.readString();
         name = in.readString();
         path = in.readString();
         categoryID = in.readString();
@@ -89,7 +85,6 @@ public class Memory implements Parcelable {
 
     @Override
     public void writeToParcel(@NonNull Parcel dest, int flags) {
-        dest.writeString(id);
         dest.writeString(name);
         dest.writeString(path);
         dest.writeString(categoryID);
