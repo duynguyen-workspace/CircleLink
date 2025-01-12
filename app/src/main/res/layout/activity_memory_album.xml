@@ -50,19 +50,6 @@
                     android:textSize="18sp"
                     android:textStyle="bold"
                     android:textColor="@color/light_gray" />
-
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_weight="1" />
-
-                <ImageButton
-                    android:id="@+id/filter_icon"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/baseline_filter_list_alt_24"
-                    android:background="@null"
-                    android:contentDescription="Filter" />
             </LinearLayout>
 
             <TextView

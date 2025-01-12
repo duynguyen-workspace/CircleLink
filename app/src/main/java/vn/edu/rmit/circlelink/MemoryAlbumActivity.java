@@ -34,7 +34,7 @@ import vn.edu.rmit.circlelink.model.Memory;
 public class MemoryAlbumActivity extends AppCompatActivity {
 
     RecyclerView memoriesView, albumsView;
-    ImageButton pickButton, filterButton;
+    ImageButton pickButton;
 
     MemoryMonthAdapter memoriesAdapter;
     CategoryAlbumAdapter categoryAlbumAdapter;
