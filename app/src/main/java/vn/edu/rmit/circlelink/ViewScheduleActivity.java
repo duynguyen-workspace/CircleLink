@@ -55,6 +55,9 @@ public class ViewScheduleActivity extends AppCompatActivity {
                 scheduleEndTimeTV.setText(CalendarUtils.formattedTime(currentSchedule.getEndTime()));
             }
             scheduleLocationTV.setText(currentSchedule.getLocation());
+            if (currentSchedule.getLocation().isEmpty()) {
+                scheduleLocationTV.setText("No location");
+            }
             scheduleTimeAlarmTV.setText(currentSchedule.getTimeAlarm());
             if (currentSchedule.getNotes().isEmpty()) {
                 scheduleNotesTV.setText("No notes");
