@@ -71,9 +71,17 @@ public class MemoryAlbumActivity extends AppCompatActivity {
 
     private void setUpMemories() {
         Log.d("currentMemories", String.valueOf(MemoryUtils.currentMemories.size()));
-        memoriesAdapter = new MemoryMonthAdapter(MemoryAlbumActivity.this, MemoryUtils.groupAndSortMemoriesByMonth());
-        memoriesView.setLayoutManager(new LinearLayoutManager(MemoryAlbumActivity.this));
-        memoriesView.setAdapter(memoriesAdapter);
+        if (MemoryUtils.currentMemories.isEmpty()) {
+            findViewById(R.id.noMemoriesTV).setVisibility(View.VISIBLE);
+            memoriesView.setVisibility(View.GONE);
+        } else {
+            findViewById(R.id.noMemoriesTV).setVisibility(View.GONE);
+            memoriesView.setVisibility(View.VISIBLE);
+
+            memoriesAdapter = new MemoryMonthAdapter(MemoryAlbumActivity.this, MemoryUtils.groupAndSortMemoriesByMonth());
+            memoriesView.setLayoutManager(new LinearLayoutManager(MemoryAlbumActivity.this));
+            memoriesView.setAdapter(memoriesAdapter);
+        }
     }
 
     private void initWidgets() {

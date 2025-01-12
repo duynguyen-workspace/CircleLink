@@ -65,12 +65,23 @@
                     android:contentDescription="Filter" />
             </LinearLayout>
 
+            <TextView
+                android:id="@+id/noMemoriesTV"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="100dp"
+                android:textColor="#88EEEEEE"
+                android:textSize="16sp"
+                android:gravity="center"
+                android:text="Share your memories now!" />
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/photosRecyclerView"
                 android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:scrollbars="vertical" />
+                android:scrollbars="vertical"
+                android:visibility="gone"/>
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>

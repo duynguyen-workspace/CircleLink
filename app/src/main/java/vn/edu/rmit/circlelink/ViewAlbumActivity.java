@@ -59,9 +59,17 @@ public class ViewAlbumActivity extends AppCompatActivity {
     private void setUpAlbumView() {
         albumName.setText(selectedAlbum.getName());
 
-        memoryGridAdapter = new MemoryGridAdapter(ViewAlbumActivity.this, selectedAlbum.getMemories());
-        albumMemories.setLayoutManager(new GridLayoutManager(ViewAlbumActivity.this, 3));
-        albumMemories.setAdapter(memoryGridAdapter);
+        if (selectedAlbum.getMemories().isEmpty()) {
+            findViewById(R.id.noMemoriesTV).setVisibility(View.VISIBLE);
+            albumMemories.setVisibility(View.GONE);
+        } else {
+            findViewById(R.id.noMemoriesTV).setVisibility(View.GONE);
+            albumMemories.setVisibility(View.VISIBLE);
+
+            memoryGridAdapter = new MemoryGridAdapter(ViewAlbumActivity.this, selectedAlbum.getMemories());
+            albumMemories.setLayoutManager(new GridLayoutManager(ViewAlbumActivity.this, 3));
+            albumMemories.setAdapter(memoryGridAdapter);
+        }
     }
 
     private void initWidgets() {

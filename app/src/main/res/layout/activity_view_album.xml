@@ -33,10 +33,20 @@
         android:textSize="20sp"
         android:textStyle="bold|italic" />
 
+    <TextView
+        android:id="@+id/noMemoriesTV"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textColor="#88EEEEEE"
+        android:textSize="16sp"
+        android:gravity="center"
+        android:text="Share your memories now!" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/albumMemoryRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"/>
+        android:layout_marginTop="30dp"
+        android:visibility="gone"/>
 
 </LinearLayout>
