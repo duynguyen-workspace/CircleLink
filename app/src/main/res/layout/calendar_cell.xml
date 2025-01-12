@@ -17,6 +17,17 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintVertical_bias="0.25" />
 
-
+    <!-- Red Dot ImageView -->
+    <ImageView
+        android:id="@+id/redDot"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:layout_marginTop="4dp"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/baseline_circle_24"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/cellDayText"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

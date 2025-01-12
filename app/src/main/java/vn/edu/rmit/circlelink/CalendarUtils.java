@@ -37,6 +37,17 @@ public class CalendarUtils {
         return date.format(formatter);
     }
 
+    public static boolean isScheduleAvailable(LocalDate date) {
+        // Assuming you have a list of schedules
+        for (Schedule schedule : Schedule.schedulesList) {
+            if (schedule.getDate().equals(date)) {
+                return true; // Schedule exists for this date
+            }
+        }
+        return false; // No schedule for this date
+    }
+
+
     public static String formattedDate(LocalDate date) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMMM yyyy");
         return date.format(formatter);
