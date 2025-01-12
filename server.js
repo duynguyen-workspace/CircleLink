@@ -8,16 +8,6 @@ const stripe = require("stripe")('sk_test_51Qg0pMHJsLoOY2AhwLQMtyZs1F3Xt4F5aATqj
 app.use(express.static("public"));
 app.use(express.json());
 
-// const calculateOrderAmount = (items) => {
-//   // Calculate the order total on the server to prevent
-//   // people from directly manipulating the amount on the client
-//   let total = 0;
-//   items.forEach((item) => {
-//     total += item.amount;
-//   });
-//   return total;
-// };
-
 const calculateOrderAmount = () => {
   // Charge a fixed amount of $5
   return 500;
@@ -46,4 +36,4 @@ app.get("/greet", async (req, res) => {
   res.send("Hello, it's working!");
 });
 
-app.listen(4242, () => console.log("Node server listening on port 4242!"));
+app.listen(process.env.PORT || 4242, () => console.log("Node server listening!"));

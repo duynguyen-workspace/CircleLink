@@ -71,12 +71,6 @@ public class Payment extends AppCompatActivity {
     }
 
     private void fetchPaymentIntent() {
-//        final String shoppingCartContent = "{\"items\": [ {\"id\":\"xl-tshirt\"}]}";
-//
-//        final RequestBody requestBody = RequestBody.create(
-//                MediaType.parse("application/json; charset=utf-8"),
-//                shoppingCartContent
-//                );
         final String fixedAmountPayload = "{}";
 
         final RequestBody requestBody = RequestBody.create(
