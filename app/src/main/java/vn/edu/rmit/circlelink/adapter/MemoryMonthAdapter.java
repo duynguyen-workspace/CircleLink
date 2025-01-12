@@ -44,7 +44,7 @@ public class MemoryMonthAdapter extends RecyclerView.Adapter<MemoryMonthAdapter.
         holder.dateLabel.setText(month);
 
         MemoryGridAdapter memoryGridAdapter = new MemoryGridAdapter(context, memories);
-        holder.photosGrid.setLayoutManager(new GridLayoutManager(context, 4));
+        holder.photosGrid.setLayoutManager(new GridLayoutManager(context, 3));
         holder.photosGrid.setAdapter(memoryGridAdapter);
     }
 

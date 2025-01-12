@@ -60,7 +60,7 @@ public class ViewAlbumActivity extends AppCompatActivity {
         albumName.setText(selectedAlbum.getName());
 
         memoryGridAdapter = new MemoryGridAdapter(ViewAlbumActivity.this, selectedAlbum.getMemories());
-        albumMemories.setLayoutManager(new GridLayoutManager(ViewAlbumActivity.this, 4));
+        albumMemories.setLayoutManager(new GridLayoutManager(ViewAlbumActivity.this, 3));
         albumMemories.setAdapter(memoryGridAdapter);
     }
 
