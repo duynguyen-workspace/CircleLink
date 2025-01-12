@@ -4,7 +4,9 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/brown"
-    android:padding="16dp">
+    android:paddingStart="16dp"
+    android:paddingEnd="16dp"
+    android:paddingTop="50dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -15,35 +17,13 @@
             android:id="@+id/categoriesLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Categories"
+            android:text="CATEGORIES"
             android:textSize="18sp"
+            android:textStyle="bold"
             android:textColor="@color/light_gray" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/categoriesRecyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="10dp"
-            android:scrollbars="horizontal"/>
-
-        <TextView
-            android:id="@+id/albumsLabel2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Albums"
-            android:textColor="@color/light_gray"
-            android:textSize="18sp" />
-
-        <Button
-            android:id="@+id/addAlbumButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Add Album"
-            android:layout_gravity="center" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/albumsRecyclerView2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -55,15 +35,16 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center_vertical"
-            android:layout_marginTop="20dp">
+            android:layout_marginTop="40dp">
 
             <TextView
                 android:id="@+id/photosLabel"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Photos"
+                android:text="MEMORIES"
                 android:textSize="18sp"
+                android:textStyle="bold"
                 android:textColor="@color/light_gray" />
 
             <ImageView

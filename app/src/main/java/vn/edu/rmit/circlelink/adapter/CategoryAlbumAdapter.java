@@ -44,12 +44,14 @@ public class CategoryAlbumAdapter extends RecyclerView.Adapter<CategoryAlbumAdap
 
         holder.albumName.setText(album.getName());
 
-        Glide.with(context)
-                .load(album.getCoverPhoto()) // Album cover image
-                .centerCrop()
-                .into(holder.albumCover);
+        if (album.getCoverPhoto() != null) {
+            Glide.with(context)
+                    .load(album.getCoverPhoto()) // Album cover image
+                    .centerCrop()
+                    .into(holder.albumCover);
+        }
 
-        holder.albumCover.setColorFilter(new PorterDuffColorFilter(0x60000000, PorterDuff.Mode.SRC_ATOP));
+//        holder.albumCover.setColorFilter(new PorterDuffColorFilter(0x90000000, PorterDuff.Mode.SRC_ATOP));
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

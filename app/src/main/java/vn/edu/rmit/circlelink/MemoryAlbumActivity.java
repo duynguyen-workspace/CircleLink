@@ -53,35 +53,6 @@ public class MemoryAlbumActivity extends AppCompatActivity {
         setUpMemories();
         setUpPickMemoryButton();
         setUpAlbums();
-        setUpAddAlbumButton();
-    }
-
-    private void setUpAddAlbumButton() {
-        addAlbumButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final EditText albumNameEditText = new EditText(MemoryAlbumActivity.this);
-                albumNameEditText.setHint("Enter album name");
-
-                new AlertDialog.Builder(MemoryAlbumActivity.this)
-                        .setTitle("Add New Album")
-                        .setView(albumNameEditText)
-                        .setPositiveButton("Create", (dialog, which) -> {
-                            String albumName = albumNameEditText.getText().toString().trim();
-                            if (!albumName.isEmpty()) {
-                                // Create a new album and add it to the current albums list
-                                Album newAlbum = new Album(albumName, new ArrayList<>());
-                                MemoryUtils.addCustomAlbum(newAlbum);
-
-                                setUpAlbums();
-                            } else {
-                                Toast.makeText(MemoryAlbumActivity.this, "Please enter a name for the album", Toast.LENGTH_SHORT).show();
-                            }
-                        })
-                        .setNegativeButton("Cancel", null)
-                        .show();
-            }
-        });
     }
 
     private void setUpAlbums() {
@@ -113,7 +84,6 @@ public class MemoryAlbumActivity extends AppCompatActivity {
     private void initWidgets() {
         totalPhotosTV = findViewById(R.id.totalPhotos);
         albumsView = findViewById(R.id.categoriesRecyclerView);
-        addAlbumButton = findViewById(R.id.addAlbumButton);
         memoriesView = findViewById(R.id.photosRecyclerView);
         pickButton = findViewById(R.id.pickButton);
     }

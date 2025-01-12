@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="100dp"
-    android:layout_height="100dp"
+    android:layout_width="150dp"
+    android:layout_height="150dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_marginEnd="8dp"
     app:cardCornerRadius="12dp"
-    app:cardElevation="4dp">
+    app:cardElevation="4dp"
+    android:layout_marginBottom="10dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -16,7 +17,9 @@
             android:id="@+id/albumCoverImage"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:src="@drawable/outline_insert_photo_24"
             android:scaleType="centerCrop"
+            android:background="#FFFFFF"
             android:contentDescription="Album Cover" />
 
         <!-- Dim Overlay -->
@@ -24,7 +27,7 @@
             android:id="@+id/dim_overlay"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#80000000" /> <!-- Semi-transparent black -->
+            android:background="#90000000" /> <!-- Semi-transparent black -->
 
         <!-- Album Name -->
         <TextView
@@ -32,9 +35,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_margin="8dp"
+            android:layout_margin="10dp"
+            android:textSize="18sp"
             android:text="Album Name"
             android:textColor="@color/light_gray"
+            android:textStyle="bold|italic"
             android:ellipsize="end"
             android:maxLines="1" />
     </RelativeLayout>
