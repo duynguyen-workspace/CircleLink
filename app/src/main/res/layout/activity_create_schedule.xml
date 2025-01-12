@@ -10,18 +10,32 @@
     android:background="@color/brown"
     tools:context=".CreateScheduleActivity">
 
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:background="@null"
+        android:src="@drawable/twotone_cancel_24"
+        android:onClick="cancelAction"/>
+
     <EditText
         android:id="@+id/scheduleNameET"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
         android:layout_gravity="center"
-        android:layout_marginTop="100dp"
-        android:hint="Schedule Title"
-        android:textColorHint="@color/material_dynamic_neutral_variant70"
-        android:textColor="@color/white"
-        android:textSize="20sp"
         android:ems="20"
-        android:inputType="text" />
+        android:hint="Schedule Title"
+        android:inputType="text"
+        android:textColor="@color/white"
+        android:textColorHint="@color/material_dynamic_neutral_variant70"
+        android:textSize="18sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="10dp"
+        android:background="#BDBDBD" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -42,7 +56,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
-            android:textSize="20sp"
+            android:textSize="16sp"
             android:textColor="@color/white"
             android:text="All day" />
 
@@ -63,7 +77,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:gravity="center_horizontal"
-        android:textSize="20sp"
+        android:textSize="16sp"
         android:textColor="@color/white"
         android:text="Tue, Jan 14" />
 
@@ -82,7 +96,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="3"
             android:gravity="center"
-            android:textSize="20sp"
+            android:textSize="16sp"
             android:textColor="@color/white"
             android:clickable="true"
             android:focusable="true"
@@ -100,7 +114,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="3"
             android:gravity="center"
-            android:textSize="20sp"
+            android:textSize="16sp"
             android:textColor="@color/white"
             android:clickable="true"
             android:focusable="true"
@@ -134,7 +148,7 @@
             android:layout_height="wrap_content"
             android:hint="Location"
             android:textColorHint="@color/material_dynamic_neutral_variant70"
-            android:textSize="20sp"
+            android:textSize="16sp"
             android:textColor="@color/white"/>
 
     </LinearLayout>
@@ -166,7 +180,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="10 minutes before"
-            android:textSize="20sp"
+            android:textSize="16sp"
             android:textColor="@color/white"/>
 
     </LinearLayout>
@@ -196,7 +210,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Notes"
-            android:textSize="20sp"
+            android:textSize="16sp"
             android:textColorHint="@color/material_dynamic_neutral_variant70"
             android:textColor="@color/white"/>
 
@@ -208,54 +222,30 @@
         android:layout_marginTop="10dp"
         android:background="#BDBDBD" />
 
-    <!--    <TextView-->
-    <!--        android:id="@+id/scheduleDateTV"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_gravity="center"-->
-    <!--        android:layout_marginTop="20dp"-->
-    <!--        android:text="Date"-->
-    <!--        android:textSize="20sp"-->
-    <!--        android:textAlignment="center"-->
-    <!--        android:textColor="@color/green_moss" />-->
+    <TextView
+        android:id="@+id/conditionMessage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="5dp"
+        android:textSize="16sp"
+        android:textColor="@color/red"
+        android:text="'Schedule Title' cannot be empty."
+        android:visibility="invisible" />
 
-    <!--    <TextView-->
-    <!--        android:id="@+id/scheduleTimeTV"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_gravity="center"-->
-    <!--        android:layout_marginTop="20dp"-->
-    <!--        android:text="Time"-->
-    <!--        android:textSize="20sp"-->
-    <!--        android:textAlignment="center"-->
-    <!--        android:textColor="@color/green_moss" />-->
 
     <Button
         android:layout_marginTop="30dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:paddingStart="10dp"
-        android:paddingEnd="10dp"
-        android:text="SAVE"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:text="Add Schedule"
         android:textColor="@color/green_moss"
         android:background="@color/light_gray"
         android:textStyle="bold"
-        android:textSize="20sp"
+        android:textSize="16sp"
         android:onClick="saveScheduleAction"/>
-
-    <Button
-        android:layout_marginTop="10dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:paddingStart="10dp"
-        android:paddingEnd="10dp"
-        android:text="CANCEL"
-        android:textColor="@color/red"
-        android:background="@color/light_gray"
-        android:textStyle="bold"
-        android:textSize="20sp"
-        android:onClick="cancelAction"/>
 
 </LinearLayout>

@@ -27,7 +27,7 @@ public class CreateScheduleActivity extends AppCompatActivity {
     private LinearLayout scheduleTimeView;
     private EditText scheduleNameET, scheduleLocationET, scheduleNotesET;
     //    private TextView scheduleDateTV, scheduleTimeTV;
-    private TextView scheduleDateTV, scheduleStartTime, scheduleEndTime, timeAlarmTV;
+    private TextView scheduleDateTV, scheduleStartTime, scheduleEndTime, timeAlarmTV, conditionMessage;
     private Switch allDaySwitch;
 
     private LocalTime selectedStartTime = null;
@@ -75,6 +75,7 @@ public class CreateScheduleActivity extends AppCompatActivity {
         scheduleLocationET = findViewById(R.id.scheduleLocationET);
         scheduleNotesET = findViewById(R.id.scheduleNotesET);
         timeAlarmTV = findViewById(R.id.timeAlarmTV);
+        conditionMessage = findViewById(R.id.conditionMessage);
     }
 
     private void setUpSwitch() {
@@ -178,8 +179,14 @@ public class CreateScheduleActivity extends AppCompatActivity {
     }
 
     public void saveScheduleAction(View view) {
+        String scheduleName = scheduleNameET.getText().toString().trim();
+        if (scheduleName.isEmpty()) {
+            conditionMessage.setVisibility(View.VISIBLE);
+            return;
+        } else {
+            conditionMessage.setVisibility(View.INVISIBLE);
+        }
         Schedule.schedulesList.remove(editSchedule);
-        String scheduleName = scheduleNameET.getText().toString();
         boolean isAllDay = true;
         if (!allDaySwitch.isChecked()) {
             isAllDay = false;

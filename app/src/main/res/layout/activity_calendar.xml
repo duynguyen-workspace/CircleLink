@@ -127,7 +127,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/calendarRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="350dp"
+        android:layout_height="300dp"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"/>
 
@@ -136,14 +136,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:background="@color/light_gray"
+        android:onClick="newScheduleAction"
         android:paddingStart="20dp"
         android:paddingEnd="20dp"
         android:text="ADD SCHEDULE FOR THIS DATE"
         android:textColor="@color/red"
-        android:background="@color/light_gray"
-        android:textStyle="bold"
-        android:textSize="18sp"
-        android:onClick="newScheduleAction"/>
+        android:textSize="16sp"
+        android:textStyle="bold" />
 
     <ListView
         android:id="@+id/scheduleListView"
