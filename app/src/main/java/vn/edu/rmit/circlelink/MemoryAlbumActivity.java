@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,8 +34,7 @@ import vn.edu.rmit.circlelink.model.Memory;
 public class MemoryAlbumActivity extends AppCompatActivity {
 
     RecyclerView memoriesView, albumsView;
-    TextView totalPhotosTV;
-    Button pickButton, addAlbumButton;
+    ImageButton pickButton, filterButton;
 
     MemoryMonthAdapter memoriesAdapter;
     CategoryAlbumAdapter categoryAlbumAdapter;
@@ -67,11 +67,6 @@ public class MemoryAlbumActivity extends AppCompatActivity {
         super.onResume();
         setUpAlbums();
         setUpMemories();
-        if (MemoryUtils.currentMemories != null) {
-            totalPhotosTV.setText("Photos (" + MemoryUtils.currentMemories.size() + ")");
-        } else {
-            totalPhotosTV.setText("");
-        }
     }
 
     private void setUpMemories() {
@@ -82,7 +77,6 @@ public class MemoryAlbumActivity extends AppCompatActivity {
     }
 
     private void initWidgets() {
-        totalPhotosTV = findViewById(R.id.totalPhotos);
         albumsView = findViewById(R.id.categoriesRecyclerView);
         memoriesView = findViewById(R.id.photosRecyclerView);
         pickButton = findViewById(R.id.pickButton);
@@ -131,8 +125,6 @@ public class MemoryAlbumActivity extends AppCompatActivity {
                 setUpMemories();
                 setUpAlbums();
 
-                // Update the total photos text
-                totalPhotosTV.setText("Photos (" + MemoryUtils.currentMemories.size() + ")");
             });
         } else {
             // If no images were picked

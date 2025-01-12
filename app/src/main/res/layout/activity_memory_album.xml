@@ -1,84 +1,89 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/brown"
-    android:paddingStart="16dp"
-    android:paddingEnd="16dp"
-    android:paddingTop="50dp">
+    android:layout_height="match_parent">
 
-    <LinearLayout
+    <!-- Scrollable Content -->
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/categoriesLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="CATEGORIES"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:textColor="@color/light_gray" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/categoriesRecyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="10dp"
-            android:scrollbars="horizontal"/>
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/brown"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:paddingTop="50dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:layout_marginTop="40dp">
+            android:orientation="vertical">
 
             <TextView
-                android:id="@+id/photosLabel"
-                android:layout_width="0dp"
+                android:id="@+id/categoriesLabel"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="MEMORIES"
+                android:text="CATEGORIES"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:textColor="@color/light_gray" />
 
-            <ImageView
-                android:id="@+id/filter_icon"
-                android:layout_width="wrap_content"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/categoriesRecyclerView"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:src="@drawable/baseline_filter_24"
-                android:contentDescription="Filter" />
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp"
+                android:scrollbars="horizontal" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="top"
+                android:layout_marginTop="40dp">
+
+                <TextView
+                    android:id="@+id/photosLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:text="MEMORIES"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/light_gray" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+                <ImageButton
+                    android:id="@+id/filter_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/baseline_filter_list_alt_24"
+                    android:background="@null"
+                    android:contentDescription="Filter" />
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/photosRecyclerView"
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="vertical" />
         </LinearLayout>
 
-        <Button
-            android:id="@+id/pickButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Pick"
-            android:layout_gravity="center"
-            android:layout_marginTop="20dp"/>
+    </androidx.core.widget.NestedScrollView>
 
-        <TextView
-            android:id="@+id/totalPhotos"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="5dp"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:textColor="@color/white"/>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/photosRecyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:scrollbars="vertical" />
-
-    </LinearLayout>
-
-</androidx.core.widget.NestedScrollView>
+    <!-- Floating Pick Button -->
+    <ImageButton
+        android:id="@+id/pickButton"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="25dp"
+        android:background="@drawable/floating_button_background"
+        android:src="@drawable/outline_add_photo_alternate_24"
+        android:contentDescription="Pick Memory"
+        android:elevation="6dp" />
+</FrameLayout>
