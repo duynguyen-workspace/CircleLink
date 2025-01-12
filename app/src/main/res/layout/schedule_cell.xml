@@ -12,7 +12,8 @@
         android:gravity="center"
         android:layout_marginStart="20dp"
         android:textSize="20sp"
-        android:textColor="@color/black"
+        android:textColor="@color/light_gray"
+        android:textStyle="bold"
         android:text="Schedule" />
 
     <TextView
@@ -22,7 +23,8 @@
         android:gravity="center"
         android:layout_marginStart="20dp"
         android:textSize="16sp"
-        android:textColor="@color/black"
+        android:textColor="@color/light_gray"
+        android:textStyle="italic"
         android:text="All day" />
 
 </LinearLayout>
