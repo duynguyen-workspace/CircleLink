@@ -143,12 +143,22 @@
         android:text="ADD SCHEDULE FOR THIS DATE"
         android:textColor="@color/red"
         android:textSize="16sp"
-        android:textStyle="bold" />
+        android:textStyle="bold" />'
+
+    <TextView
+        android:id="@+id/noSchedulesTV"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="No schedules yet for selected date"
+        android:textSize="16sp"
+        android:textColor="#8CEEEEEE"
+        android:gravity="center" />
 
     <ListView
         android:id="@+id/scheduleListView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1" />
+        android:layout_weight="1"
+        android:visibility="gone"/>
 
 </LinearLayout>

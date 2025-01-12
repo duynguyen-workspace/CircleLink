@@ -87,9 +87,17 @@ public class CalendarActivity extends AppCompatActivity implements CalendarAdapt
 
     private void setScheduleAdapter() {
         ArrayList<Schedule> dailySchedules = Schedule.schedulesForDate(CalendarUtils.selectedDate);
-        CalendarUtils.selectedDateSchedules = dailySchedules;
-        ScheduleAdapter scheduleAdapter = new ScheduleAdapter(CalendarActivity.this, dailySchedules);
-        scheduleListView.setAdapter(scheduleAdapter);
+        if (dailySchedules.isEmpty()) {
+            findViewById(R.id.noSchedulesTV).setVisibility(View.VISIBLE);
+            scheduleListView.setVisibility(View.GONE);
+        } else {
+            findViewById(R.id.noSchedulesTV).setVisibility(View.GONE);
+            scheduleListView.setVisibility(View.VISIBLE);
+
+            CalendarUtils.selectedDateSchedules = dailySchedules;
+            ScheduleAdapter scheduleAdapter = new ScheduleAdapter(CalendarActivity.this, dailySchedules);
+            scheduleListView.setAdapter(scheduleAdapter);
+        }
     }
 
     public void newScheduleAction(View view) {
