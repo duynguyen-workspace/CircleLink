@@ -1,6 +1,13 @@
 package vn.edu.rmit.circlelink;
 
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
+import android.text.SpannableString;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
+import android.text.style.ForegroundColorSpan;
+import android.text.style.StyleSpan;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -10,6 +17,7 @@ import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -46,7 +54,23 @@ public class ViewMemoryActivity extends AppCompatActivity {
     }
 
     private void setCategoryTV() {
-        categoryTV.setText("Category: " + currentMemory.getCategoryID());
+        String categoryHead = "Category: ";
+        String categoryID = currentMemory.getCategoryID();
+
+        SpannableStringBuilder spannable = new SpannableStringBuilder();
+
+        SpannableString categorySpan = new SpannableString(categoryHead);
+        categorySpan.setSpan(new StyleSpan(Typeface.ITALIC), 0, categoryHead.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        categorySpan.setSpan(new ForegroundColorSpan(Color.GRAY), 0, categoryHead.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        SpannableString categoryIDSpan = new SpannableString(categoryID);
+        categoryIDSpan.setSpan(new StyleSpan(Typeface.BOLD), 0, categoryID.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        categoryIDSpan.setSpan(new ForegroundColorSpan(ContextCompat.getColor(ViewMemoryActivity.this, R.color.light_gray)), 0, categoryID.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        spannable.append(categorySpan);
+        spannable.append(categoryIDSpan);
+
+        categoryTV.setText(spannable);
     }
 
 

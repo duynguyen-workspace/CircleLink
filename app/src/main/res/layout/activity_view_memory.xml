@@ -15,7 +15,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/memoryViewFull"
+        android:drawableStart="@drawable/round_arrow_left_24"
         android:text="Back"
+        android:textColor="#7AEEEEEE"
+        android:textSize="14sp"
+        android:background="@android:color/transparent"
         android:onClick="closeAction"/>
 
 
@@ -24,6 +28,7 @@
         android:id="@+id/memoryViewFull"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:background="#771F1E1E"
         app:layout_constraintBottom_toTopOf="@+id/categoryTV"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -38,7 +43,7 @@
         android:textAlignment="center"
         app:layout_constraintTop_toBottomOf="@id/memoryViewFull"
         app:layout_constraintBottom_toTopOf="@id/buttonsContainer"
-        android:textSize="20sp"
+        android:textSize="18sp"
         android:textColor="@color/light_gray" />
 
     <!-- Container for buttons (Edit and Delete) at the bottom -->
