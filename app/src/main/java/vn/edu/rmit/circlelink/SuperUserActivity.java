@@ -1,5 +1,6 @@
 package vn.edu.rmit.circlelink;
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 
@@ -9,6 +10,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -40,6 +43,7 @@ public class SuperUserActivity extends AppCompatActivity {
 //    private LinearLayout listHeader;
 
     private DynamicAdapter adapter;
+    private ActivityResultLauncher<Intent> editActivityLauncher;
 
     // List of events, groups, users
     public static ArrayList<Group> groupList;
@@ -53,6 +57,28 @@ public class SuperUserActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_super_user);
 
+        editActivityLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    // Handle the result from EditActivity
+                    if (result.getResultCode() == RESULT_OK) {
+                        Intent data = result.getData();
+                        if (data != null) {
+                            // Extract the updated object from the Intent
+                            String updatedObject = data.getStringExtra("updatedObject");
+
+                            // Update your data list
+                            if ("group".equals(updatedObject)) {
+                                loadGroups();
+                            } else if ("user".equals(updatedObject)) {
+                                loadUsers();
+                            } else if ("event".equals(updatedObject)) {
+                                loadEvents();
+                            }
+                        }
+                    }
+                });
+
         groupList = SampleData.createGroupList();
         userList = SampleData.createUserList();
         eventList = SampleData.createEventList();
@@ -60,17 +86,15 @@ public class SuperUserActivity extends AppCompatActivity {
 
         tabLayout = findViewById(R.id.superUserTabLayout);
         listView = findViewById(R.id.superUserRecyclerView);
-//        listHeader = findViewById(R.id.tableHeaderLayout);
         addButton = findViewById(R.id.superUserFab);
 
         setUpTabs();
         handleTabSelection();
         setUpAddButton();
 
-        adapter = new DynamicAdapter();
+        adapter = new DynamicAdapter(editActivityLauncher);
         listView.setLayoutManager(new LinearLayoutManager(this));
         listView.setAdapter(adapter);
-//        setupHeaders(new String[]{"Name", "Owner ID", "Type", "Total Members", "Created Date"}, groupColumnWeights);
         loadGroups();
     }
 
@@ -169,24 +193,6 @@ public class SuperUserActivity extends AppCompatActivity {
         return userList;
     }
 
-//    private void setupHeaders(String[] headers, float[] columnWeights) {
-//        listHeader.removeAllViews(); // Clear existing headers
-//
-//        for (int i = 0; i < headers.length; i++) {
-//            TextView headerView = new TextView(this);
-//            headerView.setText(headers[i]);
-//            headerView.setGravity(Gravity.CENTER);
-//            headerView.setTextSize(16);
-//            headerView.setTypeface(null, Typeface.BOLD);
-//            headerView.setLayoutParams(new LinearLayout.LayoutParams(
-//                    0, // Width is determined by weight
-//                    LinearLayout.LayoutParams.WRAP_CONTENT,
-//                    columnWeights[i] // Assign weight to each header
-//            ));
-//            listHeader.addView(headerView);
-//        }
-//    }
-
     private boolean isActivityValid() {
         return !isFinishing() && !isDestroyed();
     }
@@ -206,6 +212,5 @@ public class SuperUserActivity extends AppCompatActivity {
             adapter.setData(new ArrayList<>()); // Clear data when activity is stopped
         }
     }
-
 
 }

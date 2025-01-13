@@ -1,10 +1,16 @@
 package vn.edu.rmit.circlelink.adapter;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -12,6 +18,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
+import vn.edu.rmit.circlelink.EditEventActivity;
 import vn.edu.rmit.circlelink.R;
 import vn.edu.rmit.circlelink.SuperUserActivity;
 import vn.edu.rmit.circlelink.model.Event;
@@ -21,7 +28,8 @@ import vn.edu.rmit.circlelink.model.User;
 
 public class DynamicAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private ArrayList<Object> dataList;  // Can be Group, User, or Event list
+    private ArrayList<Object> dataList;
+    private ActivityResultLauncher<Intent> editActivityLauncher;
 
     private final int GROUP_TYPE = 0;
     private final int USER_TYPE = 1;
@@ -32,8 +40,8 @@ public class DynamicAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         return date.format(formatter);
     }
 
-    public DynamicAdapter() {
-        this.dataList = dataList;
+    public DynamicAdapter(ActivityResultLauncher<Intent> editActivityLauncher) {
+        this.editActivityLauncher = editActivityLauncher;
     }
 
     public void setData(ArrayList<Object> data) {
@@ -102,6 +110,7 @@ public class DynamicAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         private TextView type;
         private TextView memberCount;
         private TextView createdDate;
+        private ImageButton editButton, deleteButton;
 
 
         public GroupViewHolder(@NonNull View itemView) {
@@ -112,6 +121,8 @@ public class DynamicAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             type = itemView.findViewById(R.id.groupType);
             memberCount = itemView.findViewById(R.id.memberCount);
             createdDate = itemView.findViewById(R.id.createdDate);
+            editButton = itemView.findViewById(R.id.editButton);
+            deleteButton = itemView.findViewById(R.id.deleteButton);
 
         }
 
@@ -121,6 +132,21 @@ public class DynamicAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             type.setText("Group Type: " + group.getType());
             memberCount.setText(getMemberCount(group.getGroupId()) + " Members");
             createdDate.setText("Date created: " + formatDate(group.getCreatedDate()));
+
+            deleteButton.setOnClickListener(v -> new AlertDialog.Builder(itemView.getContext())
+                    .setTitle("Confirm Deletion")
+                    .setMessage("Are you sure you want to delete this event?")
+                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            // Proceed with deletion if the user confirms
+                            SuperUserActivity.groupList.remove(group);
+                            dataList.remove(group);
+                            notifyDataSetChanged();
+                            Toast.makeText(itemView.getContext(), group.getName() + " deleted", Toast.LENGTH_SHORT).show();
+                        }
+                    })
+                    .setNegativeButton("No", null)
+                    .show());
         }
 
         private int getMemberCount(int groupId) {
@@ -145,6 +171,7 @@ public class DynamicAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         private TextView birthDate;
         private TextView role;
         private TextView membershipId;
+        private ImageButton editButton, deleteButton;
 
 
         public UserViewHolder(@NonNull View itemView) {
@@ -157,6 +184,8 @@ public class DynamicAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             birthDate = itemView.findViewById(R.id.userBirthDate);
             role = itemView.findViewById(R.id.userRole);
             membershipId = itemView.findViewById(R.id.userMembership);
+            editButton = itemView.findViewById(R.id.editButton);
+            deleteButton = itemView.findViewById(R.id.deleteButton);
         }
 
         public void bind(User user) {
@@ -167,28 +196,65 @@ public class DynamicAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             birthDate.setText("Date of birth: " + formatDate(user.getBirthDate()));
             role.setText(String.valueOf(user.getRoleString()));
             membershipId.setText("Membership ID: " + user.getMembershipId());
+
+            deleteButton.setOnClickListener(v -> new AlertDialog.Builder(itemView.getContext())
+                    .setTitle("Confirm Deletion")
+                    .setMessage("Are you sure you want to delete this event?")
+                    .setPositiveButton("Yes", (dialog, which) -> {
+                        // Proceed with deletion if the user confirms
+                        SuperUserActivity.userList.remove(user);
+                        dataList.remove(user);
+                        notifyDataSetChanged();
+                        Toast.makeText(itemView.getContext(), user.getName() + " deleted", Toast.LENGTH_SHORT).show();
+                    })
+                    .setNegativeButton("No", null)
+                    .show());
         }
     }
 
     public class EventViewHolder extends RecyclerView.ViewHolder {
 
-//        private TextView eventId;
         private TextView eventTitle;
         private TextView eventDescription;
+        private ImageButton editButton, deleteButton;
 
 
         public EventViewHolder(@NonNull View itemView) {
             super(itemView);
 
-//            eventId = itemView.findViewById(R.id.eventId);
             eventTitle = itemView.findViewById(R.id.eventTitle);
             eventDescription = itemView.findViewById(R.id.eventDescription);
+            editButton = itemView.findViewById(R.id.editButton);
+            deleteButton = itemView.findViewById(R.id.deleteButton);
         }
 
         public void bind(Event event) {
-//            eventId.setText(String.valueOf(event.getEventId()));
             eventTitle.setText(event.getTitle());
             eventDescription.setText(event.getDescription());
+
+            editButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(itemView.getContext(), EditEventActivity.class);
+                    intent.putExtra("event", event);
+                    editActivityLauncher.launch(intent);
+                }
+            });
+
+            deleteButton.setOnClickListener(v -> new AlertDialog.Builder(itemView.getContext())
+                    .setTitle("Confirm Deletion")
+                    .setMessage("Are you sure you want to delete this event?")
+                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            // Proceed with deletion if the user confirms
+                            SuperUserActivity.eventList.remove(event);
+                            dataList.remove(event);
+                            notifyDataSetChanged();
+                            Toast.makeText(itemView.getContext(), event.getTitle() + " deleted", Toast.LENGTH_SHORT).show();
+                        }
+                    })
+                    .setNegativeButton("No", null)
+                    .show());
         }
     }
 }
