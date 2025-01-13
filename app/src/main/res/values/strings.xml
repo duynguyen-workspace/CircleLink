@@ -13,4 +13,5 @@
     <string name="create_new_account">Create new account</string>
     <string name="enter_your_information_below">Enter your information below</string>
     <string name="already_have_an_account">Already have an account?</string>
+    <string name="enter_a_name">Enter a name</string>
 </resources>

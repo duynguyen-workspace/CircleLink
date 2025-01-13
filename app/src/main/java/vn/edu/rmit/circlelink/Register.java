@@ -17,12 +17,23 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
+
+import vn.edu.rmit.circlelink.model.ChatUserModel;
 
 public class Register extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     String[] sexes = {"M", "F"};
@@ -30,17 +41,18 @@ public class Register extends AppCompatActivity implements AdapterView.OnItemSel
     Button btnDatePicker, btnSignUp;
     DatePickerDialog datePickerDialog;
     TextView textViewSignIn;
-    TextInputEditText editTextUsername, editTextEmail, editTextPassword, editTextFname, editTextLname, editTextPhone;
+    TextInputEditText editTextEmail, editTextPassword, editTextName;
     String sex;
     FirebaseAuth mAuth;
     ProgressBar progressBar;
+    FirebaseFirestore fStore;
 
     @Override
     public void onStart() {
         super.onStart();
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if(currentUser != null){
-            Intent intent = new Intent(Register.this, Home.class);
+            Intent intent = new Intent(getApplicationContext(), Home.class);
             startActivity(intent);
             finish();
         }
@@ -53,12 +65,10 @@ public class Register extends AppCompatActivity implements AdapterView.OnItemSel
         initDatePicker();
 
         mAuth = FirebaseAuth.getInstance();
-        editTextUsername = findViewById(R.id.username);
+        fStore = FirebaseFirestore.getInstance();
         editTextEmail = findViewById(R.id.email);
         editTextPassword = findViewById(R.id.password);
-        editTextFname = findViewById(R.id.fname);
-        editTextLname = findViewById(R.id.lname);
-        editTextPhone = findViewById(R.id.phone);
+        editTextName = findViewById(R.id.name);
         btnSignUp = findViewById(R.id.btnSignUp);
         spinner = findViewById(R.id.spinner);
         btnDatePicker = findViewById(R.id.btnDatePicker);
@@ -86,75 +96,67 @@ public class Register extends AppCompatActivity implements AdapterView.OnItemSel
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String username, email, password, fname, lname, phone;
+                String email, password, name, birthDate;
 
-                username = editTextUsername.getText().toString().trim();
                 email = editTextEmail.getText().toString().trim();
                 password = editTextPassword.getText().toString().trim();
-                fname = editTextFname.getText().toString().trim();
-                lname = editTextLname.getText().toString().trim();
-                phone = editTextPhone.getText().toString().trim();
+                name = editTextName.getText().toString().trim();
+                birthDate = btnDatePicker.getText().toString().trim();
 
-                if (TextUtils.isEmpty(username)) {
-                    Toast.makeText(Register.this, "Please enter a username", Toast.LENGTH_SHORT).show();
+                if (TextUtils.isEmpty(email)) {
+                    editTextEmail.setError("Please enter an email address");
                     return;
-                }
 
-                if (TextUtils.isEmpty(email) || !Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-                    Toast.makeText(Register.this, "Please enter an email address", Toast.LENGTH_SHORT).show();
+                } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                    editTextEmail.setError("Please enter a valid email address");
                     return;
                 }
 
                 if (TextUtils.isEmpty(password)) {
-                    Toast.makeText(Register.this, "Please enter a password", Toast.LENGTH_SHORT).show();
+                    editTextPassword.setError("Please enter a password");
                     return;
                 }
 
-                if (TextUtils.isEmpty(fname)) {
-                    Toast.makeText(Register.this, "Please enter your first name", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                if (TextUtils.isEmpty(lname)) {
-                    Toast.makeText(Register.this, "Please enter your last name", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                if (TextUtils.isEmpty(phone)) {
-                    Toast.makeText(Register.this, "Please enter your last name", Toast.LENGTH_SHORT).show();
+                if (TextUtils.isEmpty(name)) {
+                    editTextName.setError("Please enter your first name");
                     return;
                 }
 
                 progressBar.setVisibility(View.VISIBLE);
 
-                Log.d("Username: ", username);
                 Log.d("Email: ", email);
                 Log.d("Password: ", password);
-                Log.d("First name: ", fname);
-                Log.d("Last name: ", lname);
-                Log.d("Phone: ", phone);
+                Log.d("Full name: ", name);
                 Log.d("Sex: ", sex);
-                Log.d("Birthdate: ", btnDatePicker.getText().toString().trim());
+                Log.d("Birthdate: ", birthDate);
 
-//                mAuth.createUserWithEmailAndPassword(email, password)
-//                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-//                            @Override
-//                            public void onComplete(@NonNull Task<AuthResult> task) {
-//                                progressBar.setVisibility(View.GONE);
-//                                if (task.isSuccessful()) {
-//                                    Toast.makeText(Register.this, "Account created.",
-//                                            Toast.LENGTH_SHORT).show();
-//                                    Intent intent = new Intent(Register.this, Login.class);
-//                                    startActivity(intent);
-//                                    finish();
-//                                } else {
-//
-//                                    Toast.makeText(Register.this, "Sign up failed.",
-//                                            Toast.LENGTH_SHORT).show();
-//
-//                                }
-//                            }
-//                        });
+                mAuth.createUserWithEmailAndPassword(email, password)
+                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                progressBar.setVisibility(View.GONE);
+                                if (task.isSuccessful()) {
+
+                                    // Store data in Firestore as well
+                                    FirebaseUser user = mAuth.getCurrentUser();
+                                    DocumentReference df = fStore.collection("users").document(user.getUid());
+                                    Map<String, Object> userInfo = new HashMap<>();
+                                    userInfo.put("Name", name);
+                                    df.set(userInfo);
+
+                                    Toast.makeText(Register.this, "Account created.",
+                                            Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(Register.this, Login.class);
+                                    startActivity(intent);
+                                    finish();
+                                } else {
+
+                                    Toast.makeText(Register.this, "Sign up failed.",
+                                            Toast.LENGTH_SHORT).show();
+
+                                }
+                            }
+                        });
             }
         });
     }

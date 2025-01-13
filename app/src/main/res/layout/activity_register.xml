@@ -72,22 +72,6 @@
                 android:layout_marginBottom="15dp">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/username"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:backgroundTint="@color/white"
-                    android:drawableLeft="@drawable/icon_user"
-                    android:drawablePadding="14dp"
-                    android:hint="Username"
-                    android:paddingVertical="18dp" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="15dp">
-
-                <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -115,42 +99,6 @@
                     android:paddingVertical="18dp" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="20dp"
-                    android:layout_marginBottom="15dp"
-                    android:layout_weight="0.5">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/fname"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:backgroundTint="@color/white"
-                        android:hint="First name"
-                        android:paddingVertical="18dp" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="15dp"
-                    android:layout_weight="0.5">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/lname"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:backgroundTint="@color/white"
-                        android:hint="Last name"
-                        android:paddingVertical="18dp" />
-                </com.google.android.material.textfield.TextInputLayout>
-            </LinearLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
@@ -158,14 +106,13 @@
                 android:layout_marginBottom="15dp">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/phone"
+                    android:id="@+id/name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/white"
-                    android:drawableLeft="@drawable/icon_phone"
+                    android:drawableLeft="@drawable/icon_user"
                     android:drawablePadding="14dp"
-                    android:hint="Phone number"
-                    android:inputType="phone"
+                    android:hint="Full name"
                     android:paddingVertical="18dp" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -238,11 +185,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:backgroundTint="#A6F2A7"
+                android:backgroundTint="@color/green"
                 android:paddingVertical="18dp"
                 android:text="@string/sign_up"
                 android:textAllCaps="true"
-                android:textColor="#674747"
+                android:textColor="@color/dark_brown"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -266,7 +213,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/sign_in"
-                    android:textColor="#A6F2A7"
+                    android:textColor="@color/green"
                     android:textSize="18sp"
                     android:textStyle="bold" />
             </LinearLayout>
