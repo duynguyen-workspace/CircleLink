@@ -33,14 +33,9 @@ import vn.edu.rmit.circlelink.model.User;
 
 public class SuperUserActivity extends AppCompatActivity {
 
-//    public static float[] groupColumnWeights = {1.0f, 1.0f, 1.0f, 1.0f, 1.0f};
-//    public static float[] userColumnWeights = {0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f};
-//    public static float[] eventColumnWeights = {0.5f, 1.5f, 2.0f};
-
     private TabLayout tabLayout;
     private RecyclerView listView;
     private FloatingActionButton addButton;
-//    private LinearLayout listHeader;
 
     private DynamicAdapter adapter;
     private ActivityResultLauncher<Intent> editActivityLauncher;
@@ -102,9 +97,9 @@ public class SuperUserActivity extends AppCompatActivity {
         addButton.setOnClickListener(v -> {
             int selectedTab = tabLayout.getSelectedTabPosition();
             if (selectedTab == 0) {
-                addGroup();
+                addEventForm();
             } else if (selectedTab == 1) {
-                addEvent();
+                addGroup();
             } else {
                 addUser();
             }
@@ -118,15 +113,12 @@ public class SuperUserActivity extends AppCompatActivity {
                 if (isActivityValid()) {
                     switch (tab.getPosition()) {
                         case 0:
-//                            setupHeaders(new String[]{"ID", "Title", "Description"}, eventColumnWeights);
                             loadEvents();
                             break;
                         case 1:
-//                            setupHeaders(new String[]{"Name", "Owner ID", "Type", "Total Members", "Created Date"}, groupColumnWeights);
                             loadGroups();
                             break;
                         case 2:
-//                            setupHeaders(new String[]{"ID", "Name", "Email", "Sex", "Birthdate", "Role", "Membership ID"}, userColumnWeights);
                             loadUsers();
                             break;
                     }
@@ -165,13 +157,13 @@ public class SuperUserActivity extends AppCompatActivity {
         }
     }
 
-
     private void addGroup() {
         // Add group logic
     }
 
-    private void addEvent() {
-        // Add event logic
+    private void addEventForm() {
+        Intent intent = new Intent(this, AddEventActivity.class);
+        startActivity(intent);
     }
 
     private void addUser() {
