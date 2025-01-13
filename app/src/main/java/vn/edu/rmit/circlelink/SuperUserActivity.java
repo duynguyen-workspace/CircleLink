@@ -95,7 +95,7 @@ public class SuperUserActivity extends AppCompatActivity {
         adapter = new DynamicAdapter(editActivityLauncher);
         listView.setLayoutManager(new LinearLayoutManager(this));
         listView.setAdapter(adapter);
-        loadGroups();
+        loadEvents();
     }
 
     private void setUpAddButton() {
@@ -118,12 +118,12 @@ public class SuperUserActivity extends AppCompatActivity {
                 if (isActivityValid()) {
                     switch (tab.getPosition()) {
                         case 0:
-//                            setupHeaders(new String[]{"Name", "Owner ID", "Type", "Total Members", "Created Date"}, groupColumnWeights);
-                            loadGroups();
-                            break;
-                        case 1:
 //                            setupHeaders(new String[]{"ID", "Title", "Description"}, eventColumnWeights);
                             loadEvents();
+                            break;
+                        case 1:
+//                            setupHeaders(new String[]{"Name", "Owner ID", "Type", "Total Members", "Created Date"}, groupColumnWeights);
+                            loadGroups();
                             break;
                         case 2:
 //                            setupHeaders(new String[]{"ID", "Name", "Email", "Sex", "Birthdate", "Role", "Membership ID"}, userColumnWeights);
@@ -142,8 +142,8 @@ public class SuperUserActivity extends AppCompatActivity {
     }
 
     private void setUpTabs() {
-        tabLayout.addTab(tabLayout.newTab().setText("Groups"));
         tabLayout.addTab(tabLayout.newTab().setText("Events"));
+        tabLayout.addTab(tabLayout.newTab().setText("Groups"));
         tabLayout.addTab(tabLayout.newTab().setText("Users"));
     }
 
@@ -213,4 +213,22 @@ public class SuperUserActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        int selectedTabPosition = tabLayout.getSelectedTabPosition();
+
+        switch (selectedTabPosition) {
+            case 0: // Events tab
+                loadEvents();
+                break;
+            case 1: // Groups tab
+                loadGroups();
+                break;
+            case 2: // Users tab
+                loadUsers();
+                break;
+        }
+    }
 }
