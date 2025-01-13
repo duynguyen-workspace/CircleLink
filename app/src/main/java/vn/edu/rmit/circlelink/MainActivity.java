@@ -16,5 +16,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void directToSuperUser(View view) {
+        Intent intent = new Intent(this, SuperUserActivity.class);
+        startActivity(intent);
     }
 }
