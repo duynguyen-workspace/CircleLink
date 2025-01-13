@@ -6,6 +6,8 @@ import android.os.Bundle;
 
 import android.util.Log;
 import android.view.Gravity;
+import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -173,6 +175,35 @@ public class SuperUserActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void filterAction(View view) {
+        int selectedTabIndex = tabLayout.getSelectedTabPosition(); // Get current tab index
+        FilterSortBottomSheetFragment filterSortFragment = FilterSortBottomSheetFragment
+                .newInstance(true, selectedTabIndex); // true for filter
+        filterSortFragment.show(getSupportFragmentManager(), filterSortFragment.getTag());
+    }
+
+    public void sortAction(View view) {
+        int selectedTabIndex = tabLayout.getSelectedTabPosition(); // Get current tab index
+        FilterSortBottomSheetFragment filterSortFragment = FilterSortBottomSheetFragment
+                .newInstance(false, selectedTabIndex); // false for sort
+        filterSortFragment.show(getSupportFragmentManager(), filterSortFragment.getTag());
+    }
+
+    public void applyFilterSort(String selectedFilter, String selectedSort) {
+        // Apply the filter and sort logic based on the selected values
+        // For example:
+        if ("Event".equals(selectedFilter)) {
+            // Apply Event filter
+        }
+
+        if ("Name".equals(selectedSort)) {
+            // Apply Name sorting
+        }
+
+        // After applying the filter and sort, update the UI (RecyclerView, etc.)
+        // Refresh the list or dataset based on the filter and sort parameters
+    }
+
     private ArrayList<Group> getGroups() {
         // Fetch groups from your database or API
         return groupList;
@@ -225,5 +256,8 @@ public class SuperUserActivity extends AppCompatActivity {
                 loadUsers();
                 break;
         }
+    }
+
+    public void applyFilterSortEvent(boolean isAscending) {
     }
 }

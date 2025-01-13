@@ -1,0 +1,155 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- Filter Options -->
+    <TextView
+        android:id="@+id/filterLabelBS"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Filter by"
+        android:textSize="18sp"
+        android:layout_marginBottom="10dp"
+        android:visibility="gone"/>
+
+    <Spinner
+        android:id="@+id/filterSpinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone" /> <!-- Default hidden -->
+
+    <!-- Sort Options -->
+    <TextView
+        android:id="@+id/sortLabelBS"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Sort by"
+        android:textSize="18sp"
+        android:layout_marginBottom="10dp"
+        android:visibility="gone"/>
+    <!-- Event -->
+    <LinearLayout
+        android:id="@+id/eventSortLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <RadioGroup
+            android:id="@+id/eventSortRadioGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <RadioButton
+                android:id="@+id/eventSortAsc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:text="Title - Ascending Order" />
+            <RadioButton
+                android:id="@+id/eventSortDesc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:text="Title - Descending Order" />
+        </RadioGroup>
+    </LinearLayout>
+
+    <!-- Group -->
+    <LinearLayout
+        android:id="@+id/groupSortLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <RadioGroup
+            android:id="@+id/groupSortRadioGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <RadioButton
+                android:id="@+id/groupNameSortAsc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:text="Name - Ascending Order" />
+            <RadioButton
+                android:id="@+id/groupNameSortDesc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:text="Name - Descending Order" />
+            <RadioButton
+                android:id="@+id/groupDateSortAsc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:text="Created Date - Ascending Order" />
+            <RadioButton
+                android:id="@+id/groupDateSortDesc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:text="Created Date - Descending Order" />
+        </RadioGroup>
+    </LinearLayout>
+
+    <!-- User -->
+    <LinearLayout
+        android:id="@+id/userSortLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <RadioGroup
+            android:id="@+id/userSortRadioGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <RadioButton
+                android:id="@+id/userNameSortAsc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:text="Name - Ascending Order" />
+            <RadioButton
+                android:id="@+id/userNameSortDesc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:text="Name - Descending Order" />
+            <RadioButton
+                android:id="@+id/userBirthdateSortAsc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:text="Date of Birth - Ascending Order" />
+            <RadioButton
+                android:id="@+id/userBirthdateSortDesc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:text="Date of Birth - Descending Order" />
+        </RadioGroup>
+    </LinearLayout>
+
+    <Spinner
+        android:id="@+id/sortSpinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone" /> <!-- Default hidden -->
+
+    <!-- Additional Filter/Sort UI Elements can go here -->
+
+    <!-- Apply Button -->
+    <Button
+        android:id="@+id/applyButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Apply" />
+
+</LinearLayout>

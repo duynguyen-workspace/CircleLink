@@ -14,6 +14,7 @@
         android:text="Super User Dashboard"
         android:textSize="20sp"
         android:textStyle="bold"
+        android:layout_marginTop="30dp"
         android:layout_marginBottom="16dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -33,57 +34,30 @@
     <!-- Filter/Sort Options -->
     <LinearLayout
         android:id="@+id/filterSortLayout"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:gravity="end"
         app:layout_constraintTop_toBottomOf="@id/superUserTabLayout"
+        app:layout_constraintBottom_toTopOf="@+id/superUserRecyclerView"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="8dp">
+        app:layout_constraintEnd_toEndOf="parent">
 
-        <TextView
-            android:id="@+id/filterLabel"
+        <Button
+            android:id="@+id/filterButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Filter: "
-            android:textSize="14sp"
-            android:layout_marginEnd="8dp" />
+            android:layout_weight="1"
+            android:text="Filter"
+            android:onClick="filterAction"/>
 
-        <Spinner
-            android:id="@+id/filterSpinner"
+        <Button
+            android:id="@+id/sortButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp" />
-
-        <TextView
-            android:id="@+id/sortLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Sort: "
-            android:textSize="14sp"
-            android:layout_marginEnd="8dp" />
-
-        <Spinner
-            android:id="@+id/sortSpinner"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_weight="1"
+            android:text="Sort"
+            android:onClick="sortAction"/>
     </LinearLayout>
-
-    <!-- Table Headers -->
-<!--    <LinearLayout-->
-<!--        android:id="@+id/tableHeaderLayout"-->
-<!--        android:layout_width="0dp"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:orientation="horizontal"-->
-<!--        android:padding="8dp"-->
-<!--        app:layout_constraintTop_toBottomOf="@id/filterSortLayout"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent">-->
-
-<!--        &lt;!&ndash; Adding headers TextView programmatically &ndash;&gt;-->
-
-<!--    </LinearLayout>-->
 
     <!-- RecyclerView for Lists -->
     <androidx.recyclerview.widget.RecyclerView
