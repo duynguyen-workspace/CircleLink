@@ -103,11 +103,11 @@ public class User {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return userId == user.userId && roleId == user.roleId && membershipId == user.membershipId && Objects.equals(email, user.email) && Objects.equals(pwd, user.pwd) && Objects.equals(name, user.name) && Objects.equals(sex, user.sex) && Objects.equals(birthDate, user.birthDate);
+        return userId == user.userId;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(userId, roleId, membershipId, email, pwd, name, sex, birthDate);
+        return Objects.hash(userId);
     }
 }

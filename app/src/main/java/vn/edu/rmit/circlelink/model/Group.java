@@ -64,11 +64,11 @@ public class Group {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Group group = (Group) o;
-        return groupId == group.groupId && Objects.equals(ownerId, group.ownerId) && Objects.equals(name, group.name) && Objects.equals(type, group.type) && Objects.equals(createdDate, group.createdDate);
+        return groupId == group.groupId;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(groupId, ownerId, name, type, createdDate);
+        return Objects.hash(groupId);
     }
 }
