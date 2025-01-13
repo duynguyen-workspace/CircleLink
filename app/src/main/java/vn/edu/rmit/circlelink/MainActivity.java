@@ -14,13 +14,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
-    public void directToAlbum(View view) {
-        Intent intent = new Intent(MainActivity.this, MemoryAlbumActivity.class);
-        startActivity(intent);
-    }
 
-    public void directToCalendar(View view) {
-        Intent intent = new Intent(MainActivity.this, CalendarActivity.class);
-        startActivity(intent);
+    public void directToSuperUser(View view) {
     }
 }

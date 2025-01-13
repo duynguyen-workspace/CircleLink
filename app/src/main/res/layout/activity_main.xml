@@ -9,16 +9,10 @@
     tools:context=".MainActivity">
 
     <Button
-        android:id="@+id/albumView"
+        android:id="@+id/toSuperUser"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="directToAlbum"
-        android:text="Album" />
+        android:onClick="directToSuperUser"
+        android:text="Super User" />
 
-    <Button
-        android:id="@+id/calendarView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="directToCalendar"
-        android:text="Calendar" />
 </LinearLayout>
