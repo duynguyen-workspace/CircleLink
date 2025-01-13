@@ -1,6 +1,7 @@
 package vn.edu.rmit.circlelink.model;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 public class User {
 
@@ -95,5 +96,18 @@ public class User {
 
     public void setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return userId == user.userId && roleId == user.roleId && membershipId == user.membershipId && Objects.equals(email, user.email) && Objects.equals(pwd, user.pwd) && Objects.equals(name, user.name) && Objects.equals(sex, user.sex) && Objects.equals(birthDate, user.birthDate);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(userId, roleId, membershipId, email, pwd, name, sex, birthDate);
     }
 }

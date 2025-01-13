@@ -1,6 +1,7 @@
 package vn.edu.rmit.circlelink.model;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 public class Group {
 
@@ -56,5 +57,18 @@ public class Group {
 
     public void setCreatedDate(LocalDate createdDate) {
         this.createdDate = createdDate;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Group group = (Group) o;
+        return groupId == group.groupId && Objects.equals(ownerId, group.ownerId) && Objects.equals(name, group.name) && Objects.equals(type, group.type) && Objects.equals(createdDate, group.createdDate);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(groupId, ownerId, name, type, createdDate);
     }
 }

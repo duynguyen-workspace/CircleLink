@@ -1,5 +1,7 @@
 package vn.edu.rmit.circlelink.model;
 
+import java.util.Objects;
+
 public class Event {
 
     private int eventId;
@@ -34,5 +36,18 @@ public class Event {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Event event = (Event) o;
+        return eventId == event.eventId && Objects.equals(title, event.title) && Objects.equals(description, event.description);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(eventId, title, description);
     }
 }
