@@ -30,7 +30,7 @@ public class AddEventActivity extends AppCompatActivity {
         Event event = new Event(eventTitleET.getText().toString().trim(),
                 eventDesET.getText().toString().trim());
 
-        SuperUserActivity.eventList.add(event);
+        SuperUserActivity.eventList.add(0, event);
         Toast.makeText(this, "Event Added", Toast.LENGTH_SHORT).show();
         finish();
     }
