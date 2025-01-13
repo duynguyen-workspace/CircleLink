@@ -33,7 +33,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/app_name"
-            android:textColor="#A6F2A7"
+            android:textColor="@color/green"
             android:textSize="32sp"
             android:textStyle="bold" />
     </LinearLayout>
@@ -58,8 +58,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/get_started"
-        android:backgroundTint="#A6F2A7"
-        android:textColor="#674747"
+        android:backgroundTint="@color/green"
+        android:textColor="@color/dark_brown"
         android:textSize="20sp"
         android:textAllCaps="false"
         android:paddingVertical="15dp"
