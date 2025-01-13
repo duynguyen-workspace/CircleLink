@@ -167,7 +167,8 @@ public class SuperUserActivity extends AppCompatActivity {
     }
 
     private void addUser() {
-        // Add user logic
+        Intent intent = new Intent(this, AddUserActivity.class);
+        startActivity(intent);
     }
 
     private ArrayList<Group> getGroups() {

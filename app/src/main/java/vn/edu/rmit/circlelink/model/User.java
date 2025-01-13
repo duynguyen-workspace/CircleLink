@@ -30,6 +30,14 @@ public class User implements Parcelable {
         this.birthDate = birthDate;
     }
 
+    public User(String email, String pwd, String name, String sex) {
+        this.membershipId = 9;
+        this.email = email;
+        this.pwd = pwd;
+        this.name = name;
+        this.sex = sex;
+    }
+
     protected User(Parcel in) {
         userId = in.readInt();
         roleId = in.readInt();
@@ -65,16 +73,6 @@ public class User implements Parcelable {
         this.userId = userId;
     }
 
-    public void setUserString(String userString) {
-        if ("Regular User".equals(userString)) {
-            setUserId(1);
-        } else if ("Admin".equals(userString)) {
-            setUserId(2);
-        } else {
-            setUserId(-1);
-        }
-    }
-
     public int getRoleId() {
         return roleId;
     }
@@ -90,6 +88,16 @@ public class User implements Parcelable {
 
     public void setRoleId(int roleId) {
         this.roleId = roleId;
+    }
+
+    public void setRoleString(String userString) {
+        if ("Regular User".equals(userString)) {
+            setRoleId(1);
+        } else if ("Admin".equals(userString)) {
+            setRoleId(2);
+        } else {
+            setRoleId(-1);
+        }
     }
 
     public int getMembershipId() {
