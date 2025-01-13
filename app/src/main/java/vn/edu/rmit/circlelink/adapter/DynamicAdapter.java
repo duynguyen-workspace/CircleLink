@@ -119,7 +119,7 @@ public class DynamicAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             groupName.setText(group.getName());
             ownerId.setText("Owner ID: " + group.getOwnerId());
             type.setText("Group Type: " + group.getType());
-            memberCount.setText("Member Count: " + getMemberCount(group.getGroupId()));
+            memberCount.setText(getMemberCount(group.getGroupId()) + " Members");
             createdDate.setText("Date created: " + formatDate(group.getCreatedDate()));
         }
 
