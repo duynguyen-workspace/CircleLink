@@ -1,9 +1,14 @@
 package vn.edu.rmit.circlelink.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import androidx.annotation.NonNull;
+
 import java.time.LocalDate;
 import java.util.Objects;
 
-public class User {
+public class User implements Parcelable {
 
     private int userId;
     private int roleId;      // 1: regular user, 2: admin
@@ -25,12 +30,49 @@ public class User {
         this.birthDate = birthDate;
     }
 
+    protected User(Parcel in) {
+        userId = in.readInt();
+        roleId = in.readInt();
+        membershipId = in.readInt();
+        email = in.readString();
+        pwd = in.readString();
+        name = in.readString();
+        sex = in.readString();
+
+        String birthDateString = in.readString();
+        if (birthDateString != null) {
+            birthDate = LocalDate.parse(birthDateString);
+        }
+    }
+
+    public static final Creator<User> CREATOR = new Creator<User>() {
+        @Override
+        public User createFromParcel(Parcel in) {
+            return new User(in);
+        }
+
+        @Override
+        public User[] newArray(int size) {
+            return new User[size];
+        }
+    };
+
     public int getUserId() {
         return userId;
     }
 
     public void setUserId(int userId) {
         this.userId = userId;
+    }
+
+    public void setUserString(String userString) {
+        if ("Regular User".equals(userString)) {
+            setUserId(1);
+        } else if ("Admin".equals(userString)) {
+            setUserId(2);
+        } else {
+            setUserId(-1);
+        }
     }
 
     public int getRoleId() {
@@ -109,5 +151,24 @@ public class User {
     @Override
     public int hashCode() {
         return Objects.hash(userId);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(@NonNull Parcel dest, int flags) {
+        dest.writeInt(userId);
+        dest.writeInt(roleId);
+        dest.writeInt(membershipId);
+        dest.writeString(email);
+        dest.writeString(pwd);
+        dest.writeString(name);
+        dest.writeString(sex);
+
+        dest.writeString(birthDate != null ? birthDate.toString() : null);
+
     }
 }

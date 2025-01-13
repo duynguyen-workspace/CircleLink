@@ -20,6 +20,7 @@ import java.util.ArrayList;
 
 import vn.edu.rmit.circlelink.EditEventActivity;
 import vn.edu.rmit.circlelink.EditGroupActivity;
+import vn.edu.rmit.circlelink.EditUserActivity;
 import vn.edu.rmit.circlelink.R;
 import vn.edu.rmit.circlelink.SuperUserActivity;
 import vn.edu.rmit.circlelink.model.Event;
@@ -206,6 +207,15 @@ public class DynamicAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             birthDate.setText("Date of birth: " + formatDate(user.getBirthDate()));
             role.setText(String.valueOf(user.getRoleString()));
             membershipId.setText("Membership ID: " + user.getMembershipId());
+
+            editButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(itemView.getContext(), EditUserActivity.class);
+                    intent.putExtra("user", user);
+                    editActivityLauncher.launch(intent);
+                }
+            });
 
             deleteButton.setOnClickListener(v -> new AlertDialog.Builder(itemView.getContext())
                     .setTitle("Confirm Deletion")
