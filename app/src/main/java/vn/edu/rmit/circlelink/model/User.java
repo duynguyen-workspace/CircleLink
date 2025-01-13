@@ -36,6 +36,15 @@ public class User {
         return roleId;
     }
 
+    public String getRoleString() {
+        if (roleId == 1) {
+            return "Regular User";
+        } if (roleId == 2) {
+            return "Admin";
+        }
+        return "Role does not exist.";
+    }
+
     public void setRoleId(int roleId) {
         this.roleId = roleId;
     }

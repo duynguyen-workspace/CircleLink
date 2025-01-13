@@ -117,10 +117,10 @@ public class DynamicAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
         public void bind(Group group) {
             groupName.setText(group.getName());
-            ownerId.setText(group.getOwnerId());
-            type.setText(group.getType());
-            memberCount.setText(String.valueOf(getMemberCount(group.getGroupId())));
-            createdDate.setText(formatDate(group.getCreatedDate()));
+            ownerId.setText("Owner ID: " + group.getOwnerId());
+            type.setText("Group Type: " + group.getType());
+            memberCount.setText("Member Count: " + getMemberCount(group.getGroupId()));
+            createdDate.setText("Date created: " + formatDate(group.getCreatedDate()));
         }
 
         private int getMemberCount(int groupId) {
@@ -164,15 +164,15 @@ public class DynamicAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             name.setText(user.getName());
             email.setText(user.getEmail());
             sex.setText(user.getSex());
-            birthDate.setText(formatDate(user.getBirthDate()));
-            role.setText(String.valueOf(user.getRoleId()));
-            membershipId.setText(String.valueOf(user.getMembershipId()));
+            birthDate.setText("Date of birth: " + formatDate(user.getBirthDate()));
+            role.setText(String.valueOf(user.getRoleString()));
+            membershipId.setText("Membership ID: " + user.getMembershipId());
         }
     }
 
     public class EventViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView eventId;
+//        private TextView eventId;
         private TextView eventTitle;
         private TextView eventDescription;
 
@@ -180,13 +180,13 @@ public class DynamicAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         public EventViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            eventId = itemView.findViewById(R.id.eventId);
+//            eventId = itemView.findViewById(R.id.eventId);
             eventTitle = itemView.findViewById(R.id.eventTitle);
             eventDescription = itemView.findViewById(R.id.eventDescription);
         }
 
         public void bind(Event event) {
-            eventId.setText(String.valueOf(event.getEventId()));
+//            eventId.setText(String.valueOf(event.getEventId()));
             eventTitle.setText(event.getTitle());
             eventDescription.setText(event.getDescription());
         }

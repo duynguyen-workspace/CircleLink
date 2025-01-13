@@ -30,14 +30,14 @@ import vn.edu.rmit.circlelink.model.User;
 
 public class SuperUserActivity extends AppCompatActivity {
 
-    public static float[] groupColumnWeights = {1.0f, 1.0f, 1.0f, 1.0f, 1.0f};
-    public static float[] userColumnWeights = {0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f};
-    public static float[] eventColumnWeights = {0.5f, 1.5f, 2.0f};
+//    public static float[] groupColumnWeights = {1.0f, 1.0f, 1.0f, 1.0f, 1.0f};
+//    public static float[] userColumnWeights = {0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f};
+//    public static float[] eventColumnWeights = {0.5f, 1.5f, 2.0f};
 
     private TabLayout tabLayout;
     private RecyclerView listView;
     private FloatingActionButton addButton;
-    private LinearLayout listHeader;
+//    private LinearLayout listHeader;
 
     private DynamicAdapter adapter;
 
@@ -60,7 +60,7 @@ public class SuperUserActivity extends AppCompatActivity {
 
         tabLayout = findViewById(R.id.superUserTabLayout);
         listView = findViewById(R.id.superUserRecyclerView);
-        listHeader = findViewById(R.id.tableHeaderLayout);
+//        listHeader = findViewById(R.id.tableHeaderLayout);
         addButton = findViewById(R.id.superUserFab);
 
         setUpTabs();
@@ -70,7 +70,7 @@ public class SuperUserActivity extends AppCompatActivity {
         adapter = new DynamicAdapter();
         listView.setLayoutManager(new LinearLayoutManager(this));
         listView.setAdapter(adapter);
-        setupHeaders(new String[]{"Name", "Owner ID", "Type", "Total Members", "Created Date"}, groupColumnWeights);
+//        setupHeaders(new String[]{"Name", "Owner ID", "Type", "Total Members", "Created Date"}, groupColumnWeights);
         loadGroups();
     }
 
@@ -94,15 +94,15 @@ public class SuperUserActivity extends AppCompatActivity {
                 if (isActivityValid()) {
                     switch (tab.getPosition()) {
                         case 0:
-                            setupHeaders(new String[]{"Name", "Owner ID", "Type", "Total Members", "Created Date"}, groupColumnWeights);
+//                            setupHeaders(new String[]{"Name", "Owner ID", "Type", "Total Members", "Created Date"}, groupColumnWeights);
                             loadGroups();
                             break;
                         case 1:
-                            setupHeaders(new String[]{"ID", "Title", "Description"}, eventColumnWeights);
+//                            setupHeaders(new String[]{"ID", "Title", "Description"}, eventColumnWeights);
                             loadEvents();
                             break;
                         case 2:
-                            setupHeaders(new String[]{"ID", "Name", "Email", "Sex", "Birthdate", "Role", "Membership ID"}, userColumnWeights);
+//                            setupHeaders(new String[]{"ID", "Name", "Email", "Sex", "Birthdate", "Role", "Membership ID"}, userColumnWeights);
                             loadUsers();
                             break;
                     }
@@ -169,23 +169,23 @@ public class SuperUserActivity extends AppCompatActivity {
         return userList;
     }
 
-    private void setupHeaders(String[] headers, float[] columnWeights) {
-        listHeader.removeAllViews(); // Clear existing headers
-
-        for (int i = 0; i < headers.length; i++) {
-            TextView headerView = new TextView(this);
-            headerView.setText(headers[i]);
-            headerView.setGravity(Gravity.CENTER);
-            headerView.setTextSize(16);
-            headerView.setTypeface(null, Typeface.BOLD);
-            headerView.setLayoutParams(new LinearLayout.LayoutParams(
-                    0, // Width is determined by weight
-                    LinearLayout.LayoutParams.WRAP_CONTENT,
-                    columnWeights[i] // Assign weight to each header
-            ));
-            listHeader.addView(headerView);
-        }
-    }
+//    private void setupHeaders(String[] headers, float[] columnWeights) {
+//        listHeader.removeAllViews(); // Clear existing headers
+//
+//        for (int i = 0; i < headers.length; i++) {
+//            TextView headerView = new TextView(this);
+//            headerView.setText(headers[i]);
+//            headerView.setGravity(Gravity.CENTER);
+//            headerView.setTextSize(16);
+//            headerView.setTypeface(null, Typeface.BOLD);
+//            headerView.setLayoutParams(new LinearLayout.LayoutParams(
+//                    0, // Width is determined by weight
+//                    LinearLayout.LayoutParams.WRAP_CONTENT,
+//                    columnWeights[i] // Assign weight to each header
+//            ));
+//            listHeader.addView(headerView);
+//        }
+//    }
 
     private boolean isActivityValid() {
         return !isFinishing() && !isDestroyed();
