@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.activity.result.ActivityResultLauncher;
@@ -159,6 +160,7 @@ public class SuperUserActivity extends AppCompatActivity {
 
     private void addGroup() {
         // Add group logic
+        Toast.makeText(this, "Cannot add group.", Toast.LENGTH_SHORT).show();
     }
 
     private void addEventForm() {
