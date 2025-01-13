@@ -1,9 +1,14 @@
 package vn.edu.rmit.circlelink.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import androidx.annotation.NonNull;
+
 import java.time.LocalDate;
 import java.util.Objects;
 
-public class Group {
+public class Group implements Parcelable {
 
     private int groupId;
     private String ownerId;
@@ -18,6 +23,30 @@ public class Group {
         this.type = type;
         this.createdDate = createdDate;
     }
+
+    protected Group(Parcel in) {
+        groupId = in.readInt();
+        ownerId = in.readString();
+        name = in.readString();
+        type = in.readString();
+
+        String createdDateString = in.readString();
+        if (createdDateString != null) {
+            createdDate = LocalDate.parse(createdDateString);
+        }
+    }
+
+    public static final Creator<Group> CREATOR = new Creator<Group>() {
+        @Override
+        public Group createFromParcel(Parcel in) {
+            return new Group(in);
+        }
+
+        @Override
+        public Group[] newArray(int size) {
+            return new Group[size];
+        }
+    };
 
     public int getGroupId() {
         return groupId;
@@ -70,5 +99,20 @@ public class Group {
     @Override
     public int hashCode() {
         return Objects.hash(groupId);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(@NonNull Parcel dest, int flags) {
+        dest.writeInt(groupId);
+        dest.writeString(ownerId);
+        dest.writeString(name);
+        dest.writeString(type);
+
+        dest.writeString(createdDate != null ? createdDate.toString() : null);
     }
 }

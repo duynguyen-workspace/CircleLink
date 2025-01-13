@@ -19,6 +19,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import vn.edu.rmit.circlelink.EditEventActivity;
+import vn.edu.rmit.circlelink.EditGroupActivity;
 import vn.edu.rmit.circlelink.R;
 import vn.edu.rmit.circlelink.SuperUserActivity;
 import vn.edu.rmit.circlelink.model.Event;
@@ -132,6 +133,15 @@ public class DynamicAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             type.setText("Group Type: " + group.getType());
             memberCount.setText(getMemberCount(group.getGroupId()) + " Members");
             createdDate.setText("Date created: " + formatDate(group.getCreatedDate()));
+
+            editButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(itemView.getContext(), EditGroupActivity.class);
+                    intent.putExtra("group", group);
+                    editActivityLauncher.launch(intent);
+                }
+            });
 
             deleteButton.setOnClickListener(v -> new AlertDialog.Builder(itemView.getContext())
                     .setTitle("Confirm Deletion")
