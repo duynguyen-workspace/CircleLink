@@ -5,14 +5,70 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@drawable/gradient_background"
+    android:padding="30dp"
+    android:layout_gravity="center"
     android:gravity="center"
     tools:context=".MainActivity">
 
-    <Button
-        android:id="@+id/toSuperUser"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="directToSuperUser"
-        android:text="Super User" />
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:layout_marginBottom="11dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="8dp"
+            android:text="@string/welcome_text"
+            android:textColor="@color/white"
+            android:textSize="32sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/app_name"
+            android:textColor="#A6F2A7"
+            android:textSize="32sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:textColor="@color/white"
+        android:text="@string/welcome_description_text"
+        android:layout_marginRight="8dp"
+        android:textAlignment="center"/>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/get_started_image"
+        android:layout_marginVertical="50dp"/>
+
+    <Button
+        android:id="@+id/btnGetStarted"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/get_started"
+        android:backgroundTint="#A6F2A7"
+        android:textColor="#674747"
+        android:textSize="20sp"
+        android:textAllCaps="false"
+        android:paddingVertical="15dp"
+        />
+  
+    <Button
+          android:id="@+id/toSuperUser"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:onClick="directToSuperUser"
+          android:text="Super User" />
 
 </LinearLayout>
