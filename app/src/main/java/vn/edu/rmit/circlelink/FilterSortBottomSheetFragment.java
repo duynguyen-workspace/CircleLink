@@ -17,10 +17,16 @@ import android.widget.TextView;
 
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
+import java.util.ArrayList;
+
+import vn.edu.rmit.circlelink.model.Event;
+
 public class FilterSortBottomSheetFragment extends BottomSheetDialogFragment {
 
     private boolean isFilterView = true; // To decide if it's Filter or Sort
     private int currentTabIndex = 0;  // Default tab index
+
+    private Button applyButton;
 
     public static FilterSortBottomSheetFragment newInstance(boolean isFilterView, int currentTabIndex) {
         FilterSortBottomSheetFragment fragment = new FilterSortBottomSheetFragment();
@@ -41,12 +47,9 @@ public class FilterSortBottomSheetFragment extends BottomSheetDialogFragment {
             isFilterView = getArguments().getBoolean("isFilterView");
             currentTabIndex = getArguments().getInt("currentTabIndex");
         }
+        applyButton = view.findViewById(R.id.applyButton);
 
         setupBottomSheetContent(view); // Update content based on Filter/Sort and tab
-
-        // Set up Apply button listener
-        Button applyButton = view.findViewById(R.id.applyButton);
-        applyButton.setOnClickListener(v -> applyFilterSort());
 
         return view;
     }
@@ -115,7 +118,7 @@ public class FilterSortBottomSheetFragment extends BottomSheetDialogFragment {
             if (checkedId == R.id.userNameSortAsc) {
                 // Sort in ascending order by event title
 //                eventSortEvents(true);
-                ((SuperUserActivity) getActivity()).applyFilterSortEvent(true);
+//                ((SuperUserActivity) getActivity()).applyFilterSortEvent(true);
             } else if (checkedId == R.id.userNameSortDesc) {
                 // Sort in descending order by event title
 //                eventSortEvents(false);
@@ -123,24 +126,40 @@ public class FilterSortBottomSheetFragment extends BottomSheetDialogFragment {
         });
     }
 
+    private String eventSelectedSortOrder;
     private void eventSortUI(View view) {
         LinearLayout eventSortLayout = view.findViewById(R.id.eventSortLayout);
         RadioGroup sortRadioGroup = view.findViewById(R.id.eventSortRadioGroup);
-        RadioButton eventSortAsc = view.findViewById(R.id.eventSortAsc);
-        RadioButton eventSortDesc = view.findViewById(R.id.eventSortDesc);
-
         eventSortLayout.setVisibility(View.VISIBLE);
 
         sortRadioGroup.setOnCheckedChangeListener((group, checkedId) -> {
             if (checkedId == R.id.eventSortAsc) {
                 // Sort in ascending order by event title
-//                eventSortEvents(true);
-                ((SuperUserActivity) getActivity()).applyFilterSortEvent(true);
+                eventSelectedSortOrder = "asc";
             } else if (checkedId == R.id.eventSortDesc) {
                 // Sort in descending order by event title
-//                eventSortEvents(false);
+                eventSelectedSortOrder = "desc";
             }
         });
+
+        applyButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if ("asc".equals(eventSelectedSortOrder)) {
+                    ArrayList<Event> sortedEvents = SuperUserActivity.eventList;
+                    SortUtils.sortEventsByTitle(sortedEvents, true);
+                    ((SuperUserActivity) getActivity()).applyFilterSortEvent(sortedEvents);
+                } else if ("desc".equals(eventSelectedSortOrder)) {
+                    ArrayList<Event> sortedEvents = SuperUserActivity.eventList;
+                    SortUtils.sortEventsByTitle(sortedEvents, false);
+                    ((SuperUserActivity) getActivity()).applyFilterSortEvent(sortedEvents);
+                }
+
+                dismiss();
+            }
+        });
+
+
     }
 
     private void groupSortUI(View view) {
@@ -157,7 +176,7 @@ public class FilterSortBottomSheetFragment extends BottomSheetDialogFragment {
             if (checkedId == R.id.groupNameSortAsc) {
                 // Sort in ascending order by event title
 //                eventSortEvents(true);
-                ((SuperUserActivity) getActivity()).applyFilterSortEvent(true);
+//                ((SuperUserActivity) getActivity()).applyFilterSortEvent(true);
             } else if (checkedId == R.id.groupNameSortDesc) {
                 // Sort in descending order by event title
 //                eventSortEvents(false);

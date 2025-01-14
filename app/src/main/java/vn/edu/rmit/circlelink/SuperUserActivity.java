@@ -258,6 +258,9 @@ public class SuperUserActivity extends AppCompatActivity {
         }
     }
 
-    public void applyFilterSortEvent(boolean isAscending) {
+    public void applyFilterSortEvent(ArrayList<Event> sortedEvents) {
+        if (isActivityValid()) {
+            adapter.setData(new ArrayList<Object>(sortedEvents));
+        }
     }
 }
