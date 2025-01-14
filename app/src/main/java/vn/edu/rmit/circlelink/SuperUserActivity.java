@@ -67,10 +67,13 @@ public class SuperUserActivity extends AppCompatActivity {
 
                             // Update your data list
                             if ("group".equals(updatedObject)) {
+                                addButton.setVisibility(View.GONE);
                                 loadGroups();
                             } else if ("user".equals(updatedObject)) {
+                                addButton.setVisibility(View.VISIBLE);
                                 loadUsers();
                             } else if ("event".equals(updatedObject)) {
+                                addButton.setVisibility(View.VISIBLE);
                                 loadEvents();
                             }
                         }
@@ -104,7 +107,7 @@ public class SuperUserActivity extends AppCompatActivity {
             } else if (selectedTab == 1) {
                 addGroup();
             } else {
-                addUser();
+                addUserForm();
             }
         });
     }
@@ -114,16 +117,16 @@ public class SuperUserActivity extends AppCompatActivity {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 if (isActivityValid()) {
-                    switch (tab.getPosition()) {
-                        case 0:
-                            loadEvents();
-                            break;
-                        case 1:
-                            loadGroups();
-                            break;
-                        case 2:
-                            loadUsers();
-                            break;
+                    int position = tab.getPosition();
+                    if (position == 0) {
+                        addButton.setVisibility(View.VISIBLE);
+                        loadEvents();
+                    } else if (position == 1) {
+                        addButton.setVisibility(View.GONE);
+                        loadGroups();
+                    } else if (position == 2) {
+                        addButton.setVisibility(View.VISIBLE);
+                        loadUsers();
                     }
                 }
             }
@@ -161,7 +164,6 @@ public class SuperUserActivity extends AppCompatActivity {
     }
 
     private void addGroup() {
-        // Add group logic
         Toast.makeText(this, "Cannot add group.", Toast.LENGTH_SHORT).show();
     }
 
@@ -170,7 +172,7 @@ public class SuperUserActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private void addUser() {
+    private void addUserForm() {
         Intent intent = new Intent(this, AddUserActivity.class);
         startActivity(intent);
     }
@@ -189,21 +191,6 @@ public class SuperUserActivity extends AppCompatActivity {
         filterSortFragment.show(getSupportFragmentManager(), filterSortFragment.getTag());
     }
 
-    public void applyFilterSort(String selectedFilter, String selectedSort) {
-        // Apply the filter and sort logic based on the selected values
-        // For example:
-        if ("Event".equals(selectedFilter)) {
-            // Apply Event filter
-        }
-
-        if ("Name".equals(selectedSort)) {
-            // Apply Name sorting
-        }
-
-        // After applying the filter and sort, update the UI (RecyclerView, etc.)
-        // Refresh the list or dataset based on the filter and sort parameters
-    }
-
     private ArrayList<Group> getGroups() {
         // Fetch groups from your database or API
         return groupList;
@@ -219,9 +206,7 @@ public class SuperUserActivity extends AppCompatActivity {
         return userList;
     }
 
-    private boolean isActivityValid() {
-        return !isFinishing() && !isDestroyed();
-    }
+    private boolean isActivityValid() { return !isFinishing() && !isDestroyed(); }
 
     @Override
     protected void onDestroy() {
@@ -245,16 +230,12 @@ public class SuperUserActivity extends AppCompatActivity {
 
         int selectedTabPosition = tabLayout.getSelectedTabPosition();
 
-        switch (selectedTabPosition) {
-            case 0: // Events tab
-                loadEvents();
-                break;
-            case 1: // Groups tab
-                loadGroups();
-                break;
-            case 2: // Users tab
-                loadUsers();
-                break;
+        if (selectedTabPosition == 0) { // Events tab
+            loadEvents();
+        } else if (selectedTabPosition == 1) { // Groups tab
+            loadGroups();
+        } else if (selectedTabPosition == 2) { // Users tab
+            loadUsers();
         }
     }
 
