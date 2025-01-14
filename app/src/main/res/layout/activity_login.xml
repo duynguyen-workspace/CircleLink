@@ -89,7 +89,8 @@
                 android:backgroundTint="@color/white"
                 android:drawableLeft="@drawable/icon_lock"
                 android:drawablePadding="14dp"
-                android:paddingVertical="18dp"/>
+                android:paddingVertical="18dp"
+                android:inputType="textPassword"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
@@ -114,11 +115,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:backgroundTint="#A6F2A7"
+            android:backgroundTint="@color/green"
             android:paddingVertical="18dp"
             android:text="@string/sign_in"
             android:textAllCaps="true"
-            android:textColor="#674747"
+            android:textColor="@color/dark_brown"
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -143,7 +144,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/sign_up"
                 android:textSize="18sp"
-                android:textColor="#A6F2A7"
+                android:textColor="@color/green"
                 android:textStyle="bold"/>
         </LinearLayout>
 

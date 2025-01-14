@@ -72,15 +72,18 @@ public class Login extends AppCompatActivity {
                 email = editTextEmail.getText().toString().trim();
                 password = editTextPassword.getText().toString().trim();
 
-                if (TextUtils.isEmpty(email) || !Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-                    editTextEmail.setError("Please enter a valid email address");
-//                    Toast.makeText(Login.this, "Please enter an email address", Toast.LENGTH_SHORT).show();
-//                    return;
+                if (TextUtils.isEmpty(email)) {
+                    editTextEmail.setError("Please enter an email address");
+                    return;
 
-                } else if (TextUtils.isEmpty(password)) {
+                } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                    editTextEmail.setError("Please enter a valid email address");
+                    return;
+                }
+
+                if (TextUtils.isEmpty(password)) {
                     editTextPassword.setError("Please enter a password");
-//                    Toast.makeText(Login.this, "Please enter a password", Toast.LENGTH_SHORT).show();
-//                    return;
+                    return;
                 }
 
                 mAuth.signInWithEmailAndPassword(email, password)
