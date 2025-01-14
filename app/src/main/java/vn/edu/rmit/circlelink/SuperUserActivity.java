@@ -39,6 +39,7 @@ public class SuperUserActivity extends AppCompatActivity {
     private TabLayout tabLayout;
     private RecyclerView listView;
     private FloatingActionButton addButton;
+    private Button filterButton;
 
     private DynamicAdapter adapter;
     private ActivityResultLauncher<Intent> editActivityLauncher;
@@ -67,12 +68,15 @@ public class SuperUserActivity extends AppCompatActivity {
 
                             // Update your data list
                             if ("group".equals(updatedObject)) {
+                                filterButton.setVisibility(View.VISIBLE);
                                 addButton.setVisibility(View.GONE);
                                 loadGroups();
                             } else if ("user".equals(updatedObject)) {
+                                filterButton.setVisibility(View.VISIBLE);
                                 addButton.setVisibility(View.VISIBLE);
                                 loadUsers();
                             } else if ("event".equals(updatedObject)) {
+                                filterButton.setVisibility(View.GONE);
                                 addButton.setVisibility(View.VISIBLE);
                                 loadEvents();
                             }
@@ -88,6 +92,7 @@ public class SuperUserActivity extends AppCompatActivity {
         tabLayout = findViewById(R.id.superUserTabLayout);
         listView = findViewById(R.id.superUserRecyclerView);
         addButton = findViewById(R.id.superUserFab);
+        filterButton = findViewById(R.id.filterButton);
 
         setUpTabs();
         handleTabSelection();
@@ -96,6 +101,7 @@ public class SuperUserActivity extends AppCompatActivity {
         adapter = new DynamicAdapter(editActivityLauncher);
         listView.setLayoutManager(new LinearLayoutManager(this));
         listView.setAdapter(adapter);
+        filterButton.setVisibility(View.GONE);
         loadEvents();
     }
 
@@ -119,12 +125,15 @@ public class SuperUserActivity extends AppCompatActivity {
                 if (isActivityValid()) {
                     int position = tab.getPosition();
                     if (position == 0) {
+                        filterButton.setVisibility(View.GONE);
                         addButton.setVisibility(View.VISIBLE);
                         loadEvents();
                     } else if (position == 1) {
+                        filterButton.setVisibility(View.VISIBLE);
                         addButton.setVisibility(View.GONE);
                         loadGroups();
                     } else if (position == 2) {
+                        filterButton.setVisibility(View.VISIBLE);
                         addButton.setVisibility(View.VISIBLE);
                         loadUsers();
                     }
@@ -191,21 +200,6 @@ public class SuperUserActivity extends AppCompatActivity {
         filterSortFragment.show(getSupportFragmentManager(), filterSortFragment.getTag());
     }
 
-    private ArrayList<Group> getGroups() {
-        // Fetch groups from your database or API
-        return groupList;
-    }
-
-    private ArrayList<Event> getEvents() {
-        // Fetch events from your database or API
-        return eventList;
-    }
-
-    private ArrayList<User> getUsers() {
-        // Fetch users from your database or API
-        return userList;
-    }
-
     private boolean isActivityValid() { return !isFinishing() && !isDestroyed(); }
 
     @Override
@@ -229,7 +223,6 @@ public class SuperUserActivity extends AppCompatActivity {
         super.onResume();
 
         int selectedTabPosition = tabLayout.getSelectedTabPosition();
-
         if (selectedTabPosition == 0) { // Events tab
             loadEvents();
         } else if (selectedTabPosition == 1) { // Groups tab
