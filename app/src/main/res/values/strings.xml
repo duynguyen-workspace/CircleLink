@@ -14,4 +14,5 @@
     <string name="enter_your_information_below">Enter your information below</string>
     <string name="already_have_an_account">Already have an account?</string>
     <string name="enter_a_name">Enter a name</string>
+    <string name="write_message_here">Write message here</string>
 </resources>

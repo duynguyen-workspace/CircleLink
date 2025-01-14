@@ -34,6 +34,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import vn.edu.rmit.circlelink.model.ChatUserModel;
+import vn.edu.rmit.circlelink.utils.FirebaseUtil;
 
 public class Register extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     String[] sexes = {"M", "F"};
@@ -141,6 +142,7 @@ public class Register extends AppCompatActivity implements AdapterView.OnItemSel
                                     FirebaseUser user = mAuth.getCurrentUser();
                                     DocumentReference df = fStore.collection("users").document(user.getUid());
                                     Map<String, Object> userInfo = new HashMap<>();
+                                    userInfo.put("UserId", FirebaseUtil.currentUserId());
                                     userInfo.put("Name", name);
                                     df.set(userInfo);
 
