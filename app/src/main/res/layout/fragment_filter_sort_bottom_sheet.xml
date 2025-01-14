@@ -13,13 +13,90 @@
         android:text="Filter by"
         android:textSize="18sp"
         android:layout_marginBottom="10dp"
-        android:visibility="gone"/>
+        android:visibility="visible"/>
 
-    <Spinner
-        android:id="@+id/filterSpinner"
+    <!-- Group -->
+    <LinearLayout
+        android:id="@+id/groupFilterLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="gone" /> <!-- Default hidden -->
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Created Date Range" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/startDateButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Select Start Date" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/baseline_arrow_right_alt_24"
+                android:layout_gravity="center"
+                android:layout_weight="1"/>
+
+            <Button
+                android:id="@+id/endDateButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Select End Date" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- User -->
+    <LinearLayout
+        android:id="@+id/userFilterLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Date of Birth Range" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/startBirthdateButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Select Start Date" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/baseline_arrow_right_alt_24"
+                android:layout_gravity="center"
+                android:layout_weight="1"/>
+
+            <Button
+                android:id="@+id/endBirthdateButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Select End Date" />
+        </LinearLayout>
+    </LinearLayout>
+
 
     <!-- Sort Options -->
     <TextView

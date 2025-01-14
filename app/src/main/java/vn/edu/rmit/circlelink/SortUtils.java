@@ -1,5 +1,8 @@
 package vn.edu.rmit.circlelink;
 
+import android.os.Build;
+
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -54,4 +57,34 @@ public class SortUtils {
         }
         Collections.sort(users, comparator);
     }
+
+    public static ArrayList<Group> filterGroupsByDateRange(ArrayList<Group> groups, LocalDate startDate, LocalDate endDate) {
+        ArrayList<Group> filteredGroups = new ArrayList<>();
+        for (Group group : groups) {
+            LocalDate groupDate = group.getCreatedDate();
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                if ((startDate == null || !groupDate.isBefore(startDate)) &&
+                        (endDate == null || !groupDate.isAfter(endDate))) {
+                    filteredGroups.add(group);
+                }
+            }
+        }
+        return filteredGroups;
+    }
+
+    public static ArrayList<User> filterUsersByDateRange(ArrayList<User> users, LocalDate startDate, LocalDate endDate) {
+        ArrayList<User> filteredUsers = new ArrayList<>();
+        for (User user : users) {
+            LocalDate userDate = user.getBirthDate();
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                if ((startDate == null || !userDate.isBefore(startDate)) &&
+                        (endDate == null || !userDate.isAfter(endDate))) {
+                    filteredUsers.add(user);
+                }
+            }
+        }
+        return filteredUsers;
+    }
+
+
 }

@@ -1,5 +1,7 @@
 package vn.edu.rmit.circlelink;
 
+import android.app.DatePickerDialog;
+import android.app.sdksandbox.LoadSdkException;
 import android.os.Bundle;
 
 import android.view.LayoutInflater;
@@ -13,6 +15,7 @@ import android.widget.TextView;
 
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import vn.edu.rmit.circlelink.model.Event;
@@ -25,6 +28,11 @@ public class FilterSortBottomSheetFragment extends BottomSheetDialogFragment {
     private int currentTabIndex = 0;  // Default tab index
 
     private Button applyButton;
+
+    private LocalDate groupStartDate;
+    private LocalDate groupEndDate;
+    private LocalDate userStartBirthdate;
+    private LocalDate userEndBirthdate;
 
     private String userSelectedSortOrder;
     private String groupSelectedSortOrder;
@@ -70,17 +78,104 @@ public class FilterSortBottomSheetFragment extends BottomSheetDialogFragment {
     }
 
     private void setupFilterUI(View view) {
-        Spinner filterSpinner = view.findViewById(R.id.filterSpinner);
 
         // Default filter setup
         if (currentTabIndex == 0) { // Event tab
             // Setup filter for the Events tab
         } else if (currentTabIndex == 1) { // Group tab
-            // Setup filter for the Groups tab
+            groupFilterUI(view);
         } else if (currentTabIndex == 2) { // User tab
-            // Setup filter for the Users tab
+            userFilterUI(view);
         }
     }
+
+    private void groupFilterUI(View view) {
+        LinearLayout groupFilterLayout = view.findViewById(R.id.groupFilterLayout);
+        groupFilterLayout.setVisibility(View.VISIBLE);
+
+        Button startDateButton = view.findViewById(R.id.startDateButton);
+        Button endDateButton = view.findViewById(R.id.endDateButton);
+
+        startDateButton.setOnClickListener(v -> showDatePickerGroup(true));
+        endDateButton.setOnClickListener(v -> showDatePickerGroup(false));
+
+        applyButton.setOnClickListener(v -> {
+            if (groupStartDate != null && groupEndDate != null) {
+                ArrayList<Group> filteredGroups = SortUtils.filterGroupsByDateRange(SuperUserActivity.groupList, groupStartDate, groupEndDate);
+                ((SuperUserActivity) getActivity()).applyFilterSortGroup(filteredGroups);
+            }
+
+            dismiss();
+        });
+    }
+
+    private void userFilterUI(View view) {
+        LinearLayout userFilterLayout = view.findViewById(R.id.userFilterLayout);
+        userFilterLayout.setVisibility(View.VISIBLE);
+
+        Button startDateButton = view.findViewById(R.id.startBirthdateButton);
+        Button endDateButton = view.findViewById(R.id.endBirthdateButton);
+
+        startDateButton.setOnClickListener(v -> showDatePickerUser(true));
+        endDateButton.setOnClickListener(v -> showDatePickerUser(false));
+
+        applyButton.setOnClickListener(v -> {
+            if (userStartBirthdate != null && userEndBirthdate != null) {
+                ArrayList<User> filteredUsers = SortUtils.filterUsersByDateRange(SuperUserActivity.userList, userStartBirthdate, userEndBirthdate);
+                ((SuperUserActivity) getActivity()).applyFilterSortUser(filteredUsers);
+            }
+
+            dismiss();
+        });
+    }
+
+    private void showDatePickerGroup(boolean isStartDate) {
+        DatePickerDialog datePickerDialog = new DatePickerDialog(requireContext(),
+                (view, year, month, dayOfMonth) -> {
+                    // Convert selected date to LocalDate
+                    LocalDate selectedDate = LocalDate.of(year, month + 1, dayOfMonth);
+
+                    // Update the appropriate button text
+                    if (isStartDate) {
+                        groupStartDate = selectedDate;
+                        ((Button) getView().findViewById(R.id.startDateButton))
+                                .setText(groupStartDate.toString());
+                    } else {
+                        groupEndDate = selectedDate;
+                        ((Button) getView().findViewById(R.id.endDateButton))
+                                .setText(groupEndDate.toString());
+                    }
+                },
+                LocalDate.now().getYear(),
+                LocalDate.now().getMonthValue() - 1,
+                LocalDate.now().getDayOfMonth());
+
+        datePickerDialog.show();
+    }
+    private void showDatePickerUser(boolean isStartDate) {
+        DatePickerDialog datePickerDialog = new DatePickerDialog(requireContext(),
+                (view, year, month, dayOfMonth) -> {
+                    // Convert selected date to LocalDate
+                    LocalDate selectedDate = LocalDate.of(year, month + 1, dayOfMonth);
+
+                    // Update the appropriate button text
+                    if (isStartDate) {
+                        userStartBirthdate = selectedDate;
+                        ((Button) getView().findViewById(R.id.startBirthdateButton))
+                                .setText(userStartBirthdate.toString());
+                    } else {
+                        userEndBirthdate = selectedDate;
+                        ((Button) getView().findViewById(R.id.endBirthdateButton))
+                                .setText(userEndBirthdate.toString());
+                    }
+                },
+                LocalDate.now().getYear(),
+                LocalDate.now().getMonthValue() - 1,
+                LocalDate.now().getDayOfMonth());
+
+        datePickerDialog.show();
+    }
+
 
     private void setupSortUI(View view) {
 
