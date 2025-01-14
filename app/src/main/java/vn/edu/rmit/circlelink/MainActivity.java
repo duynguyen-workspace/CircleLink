@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
@@ -25,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
         );
 
         setContentView(R.layout.activity_main);
-
+      
         Button btnGetStarted = findViewById(R.id.btnGetStarted);
 
         btnGetStarted.setOnClickListener(new View.OnClickListener() {
@@ -36,5 +37,11 @@ public class MainActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    public void directToSuperUser(View view) {
+        Intent intent = new Intent(this, SuperUserActivity.class);
+        startActivity(intent);
+
     }
 }

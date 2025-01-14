@@ -1,5 +1,9 @@
 <resources>
     <string name="app_name">CircleLink</string>
+    <string name="next"><![CDATA[->]]></string>
+    <string name="previous"><![CDATA[<-]]></string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="welcome_text">Welcome to</string>
     <string name="welcome_description_text">A cozy platform that helps you stay in touch with your beloved ones</string>
     <string name="get_started">Get Started</string>

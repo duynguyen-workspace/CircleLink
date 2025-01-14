@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/twotone_cancel_24"
+        android:background="@null"
+        android:onClick="closeAction"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:text="Add Event Form"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textAlignment="center"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="Event Title"
+        android:textSize="18sp"
+        android:textStyle="bold|italic" />
+
+    <EditText
+        android:id="@+id/addTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Event Title"
+        android:inputType="text" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Description"
+        android:textSize="18sp"
+        android:textStyle="bold|italic" />
+
+    <EditText
+        android:id="@+id/addDescription"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:background="@android:drawable/edit_text"
+        android:gravity="top|start"
+        android:hint="Event Description"
+        android:inputType="textMultiLine"
+        android:lineSpacingExtra="4dp"
+        android:padding="16dp"
+        android:scrollbars="vertical" />
+
+    <Button
+        android:id="@+id/addEventButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:padding="20dp"
+        android:textSize="16sp"
+        android:layout_gravity="center"
+        android:text="Add Event"
+        android:onClick="addEventAction"/>
+</LinearLayout>
