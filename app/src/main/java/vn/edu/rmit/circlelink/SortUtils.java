@@ -6,19 +6,14 @@ import java.util.Comparator;
 
 import vn.edu.rmit.circlelink.model.Event;
 import vn.edu.rmit.circlelink.model.Group;
+import vn.edu.rmit.circlelink.model.User;
 
 public class SortUtils {
 
     // Sort events by title (ascending or descending)
-    public static void sortEventsByTitle(ArrayList<Event> events, boolean ascending) {
-        Comparator<Event> titleComparator = new Comparator<Event>() {
-            @Override
-            public int compare(Event e1, Event e2) {
-                return e1.getTitle().compareTo(e2.getTitle());
-            }
-        };
-
-        if (!ascending) {
+    public static void sortEventsByTitle(ArrayList<Event> events, boolean isAscending) {
+        Comparator<Event> titleComparator = Comparator.comparing(Event::getTitle, String.CASE_INSENSITIVE_ORDER);
+        if (!isAscending) {
             titleComparator = titleComparator.reversed();
         }
         events.sort(titleComparator);
@@ -40,5 +35,23 @@ public class SortUtils {
             comparator = comparator.reversed();
         }
         Collections.sort(groups, comparator);
+    }
+
+    // Sort users by name (ascending or descending)
+    public static void sortUsersByName(ArrayList<User> users, boolean isAscending) {
+        Comparator<User> comparator = Comparator.comparing(User::getName, String.CASE_INSENSITIVE_ORDER);
+        if (!isAscending) {
+            comparator = comparator.reversed();
+        }
+        Collections.sort(users, comparator);
+    }
+
+    // Sort users by date (ascending or descending)
+    public static void sortUsersByDate(ArrayList<User> users, boolean isAscending) {
+        Comparator<User> comparator = Comparator.comparing(User::getBirthDate);
+        if (!isAscending) {
+            comparator = comparator.reversed();
+        }
+        Collections.sort(users, comparator);
     }
 }

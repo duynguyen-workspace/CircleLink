@@ -269,4 +269,10 @@ public class SuperUserActivity extends AppCompatActivity {
             adapter.setData(new ArrayList<Object>(sortedGroups));
         }
     }
+
+    public void applyFilterSortUser(ArrayList<User> sortedUsers) {
+        if (isActivityValid()) {
+            adapter.setData(new ArrayList<Object>(sortedUsers));
+        }
+    }
 }
