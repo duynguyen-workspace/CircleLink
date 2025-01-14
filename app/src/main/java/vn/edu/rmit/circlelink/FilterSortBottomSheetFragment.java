@@ -20,6 +20,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import java.util.ArrayList;
 
 import vn.edu.rmit.circlelink.model.Event;
+import vn.edu.rmit.circlelink.model.Group;
 
 public class FilterSortBottomSheetFragment extends BottomSheetDialogFragment {
 
@@ -134,10 +135,8 @@ public class FilterSortBottomSheetFragment extends BottomSheetDialogFragment {
 
         sortRadioGroup.setOnCheckedChangeListener((group, checkedId) -> {
             if (checkedId == R.id.eventSortAsc) {
-                // Sort in ascending order by event title
                 eventSelectedSortOrder = "asc";
             } else if (checkedId == R.id.eventSortDesc) {
-                // Sort in descending order by event title
                 eventSelectedSortOrder = "desc";
             }
         });
@@ -162,24 +161,46 @@ public class FilterSortBottomSheetFragment extends BottomSheetDialogFragment {
 
     }
 
+    private String groupSelectedSortOrder;
     private void groupSortUI(View view) {
         LinearLayout groupSortLayout = view.findViewById(R.id.groupSortLayout);
         RadioGroup sortRadioGroup = view.findViewById(R.id.groupSortRadioGroup);
-        RadioButton groupNameSortAsc = view.findViewById(R.id.groupNameSortAsc);
-        RadioButton groupNameSortDesc = view.findViewById(R.id.groupNameSortDesc);
-        RadioButton groupDateSortAsc = view.findViewById(R.id.groupDateSortAsc);
-        RadioButton groupDateSortDesc = view.findViewById(R.id.groupDateSortDesc);
-
         groupSortLayout.setVisibility(View.VISIBLE);
 
         sortRadioGroup.setOnCheckedChangeListener((group, checkedId) -> {
             if (checkedId == R.id.groupNameSortAsc) {
-                // Sort in ascending order by event title
-//                eventSortEvents(true);
-//                ((SuperUserActivity) getActivity()).applyFilterSortEvent(true);
+                groupSelectedSortOrder = "ascName";
             } else if (checkedId == R.id.groupNameSortDesc) {
-                // Sort in descending order by event title
-//                eventSortEvents(false);
+                groupSelectedSortOrder = "descName";
+            } else if (checkedId == R.id.groupDateSortAsc) {
+                groupSelectedSortOrder = "ascDate";
+            } else if (checkedId == R.id.groupDateSortDesc) {
+                groupSelectedSortOrder = "descDate";
+            }
+        });
+
+        applyButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if ("ascName".equals(groupSelectedSortOrder)) {
+                    ArrayList<Group> sortedGroups = SuperUserActivity.groupList;
+                    SortUtils.sortGroupsByName(sortedGroups, true);
+                    ((SuperUserActivity) getActivity()).applyFilterSortGroup(sortedGroups);
+                } else if ("descName".equals(groupSelectedSortOrder)) {
+                    ArrayList<Group> sortedGroups = SuperUserActivity.groupList;
+                    SortUtils.sortGroupsByName(sortedGroups, false);
+                    ((SuperUserActivity) getActivity()).applyFilterSortGroup(sortedGroups);
+                } else if ("ascDate".equals(groupSelectedSortOrder)) {
+                    ArrayList<Group> sortedGroups = SuperUserActivity.groupList;
+                    SortUtils.sortGroupsByDate(sortedGroups, true);
+                    ((SuperUserActivity) getActivity()).applyFilterSortGroup(sortedGroups);
+                } else if ("descDate".equals(groupSelectedSortOrder)) {
+                    ArrayList<Group> sortedGroups = SuperUserActivity.groupList;
+                    SortUtils.sortGroupsByDate(sortedGroups, false);
+                    ((SuperUserActivity) getActivity()).applyFilterSortGroup(sortedGroups);
+                }
+
+                dismiss();
             }
         });
     }
